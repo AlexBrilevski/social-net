@@ -1,5 +1,6 @@
 import type { FC } from "react";
-import logo from '../../assets/images/logo.png';
+import { Link } from "react-router-dom";
+import logo from "../../assets/images/logo.png";
 
 import styles from "./Header.module.css";
 
@@ -7,7 +8,10 @@ const Header: FC = () => {
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
-        <img src={logo} alt="DevNet" width="120" height="20"/>
+        <img src={logo} alt="DevNet" width="120" height="20" />
+      </div>
+      <div>
+        <Link to="/login">Sign In</Link>
       </div>
     </header>
   );

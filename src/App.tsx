@@ -1,6 +1,8 @@
+import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
-import Profile from "./components/Profile/Profile";
+import SignIn from "./pages/SignIn/SignIn";
+import Profile from "./pages/Profile/Profile";
 
 import "./App.css";
 
@@ -10,7 +12,10 @@ function App() {
       <Header />
       <Sidebar />
       <main className="main-content">
-        <Profile />
+        <Routes>
+          <Route path="login" element={<SignIn />} />
+          <Route path="profile" element={<Profile />} />
+        </Routes>
       </main>
     </>
   )
