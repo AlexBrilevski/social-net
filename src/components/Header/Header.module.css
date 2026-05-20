@@ -1,3 +1,17 @@
 .header {
   grid-area: header;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: #323232;
+  color: #fff;
+}
+
+.header .logo {
+  width: 120px;
+}
+
+.header .logo img {
+  display: block;
 }
