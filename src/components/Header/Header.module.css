@@ -4,8 +4,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background: #323232;
-  color: #fff;
+  background: var(--header-bg);
+  border-radius: var(--border-radius-default);
 }
 
 .header .logo {

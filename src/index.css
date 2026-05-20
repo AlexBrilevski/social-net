@@ -2,7 +2,9 @@
   --text: #6b6375;
   --text-h: #08060d;
   --bg: #fff;
+  --header-bg: #323232;
   --border: #e5e4e7;
+  --border-radius-default: 5px;
   --code-bg: #f4f3ec;
   --accent: #aa3bff;
   --accent-bg: rgba(170, 59, 255, 0.1);
@@ -32,9 +34,10 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
+    --text: #dde0e6;
     --text-h: #f3f4f6;
     --bg: #16171d;
+    --header-bg: #242424;
     --border: #2e303a;
     --code-bg: #1f2028;
     --accent: #c084fc;

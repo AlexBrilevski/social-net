@@ -1,3 +1,5 @@
 .main-content {
   grid-area: content;
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius-default);
 }
