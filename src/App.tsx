@@ -6,8 +6,13 @@ import Profile from "./pages/Profile/Profile";
 import Messages from "./pages/Messages/Messages";
 
 import "./App.css";
+import type { RootAppState } from "./store/store";
 
-function App() {
+type AppProps = {
+  rootState: RootAppState,
+};
+
+function App({ rootState }: AppProps) {
   return (
     <>
       <Header />
@@ -16,7 +21,7 @@ function App() {
         <Routes>
           <Route index element={<SignIn />} />
           <Route path="login" element={<SignIn />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="profile" element={<Profile {...rootState.profilePage} />} />
           <Route path="messages" element={<Messages />} />
         </Routes>
       </main>
