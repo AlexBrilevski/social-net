@@ -1,14 +1,17 @@
 :root {
   --text: #6b6375;
   --text-h: #08060d;
+  --link: #2b2830;
   --bg: #fff;
   --header-bg: #323232;
   --border: #e5e4e7;
   --border-radius-default: 5px;
+  --indent-base: 24px;
+  --indent-s: 12px;
   --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
+  --accent: #483bff;
+  --accent-bg: rgba(59, 72, 255, 0.1);
+  --accent-border: rgba(59, 72, 255, 0.5);
   --social-bg: rgba(244, 243, 236, 0.5);
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
@@ -36,13 +39,14 @@
   :root {
     --text: #dde0e6;
     --text-h: #f3f4f6;
+    --link: #cbc9cf;
     --bg: #16171d;
     --header-bg: #242424;
     --border: #2e303a;
     --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
+    --accent: #848cfc;
+    --accent-bg: rgba(134, 132, 252, 0.15);
+    --accent-border: rgba(140, 132, 252, 0.5);
     --social-bg: rgba(47, 48, 58, 0.5);
     --shadow:
       rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
@@ -97,6 +101,10 @@ h2 {
 
 p {
   margin: 0;
+}
+
+a {
+  color: var(--link);
 }
 
 code,

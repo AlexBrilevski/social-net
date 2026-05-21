@@ -8,7 +8,9 @@ const Header: FC = () => {
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
-        <img src={logo} alt="DevNet" width="120" height="20" />
+        <Link to="/">
+          <img src={logo} alt="DevNet" width="120" height="20" />
+        </Link>
       </div>
       <div>
         <Link to="/login">Sign In</Link>
