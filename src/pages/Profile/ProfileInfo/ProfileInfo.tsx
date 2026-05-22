@@ -12,7 +12,7 @@ const ProfileInfo: FC<ProfileProps> = ({ profile }) => {
   const avatarSrc = profile?.avatar ?? defaultAvatar;
 
   return (
-    <div className={styles["profile-info"]}>
+    <div className={styles["user-profile-info"]}>
       <div>
         <img src={avatarSrc} alt="User name" width="150" height="150" />
       </div>

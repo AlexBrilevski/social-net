@@ -1,0 +1,20 @@
+.user-posts {
+  padding: var(--indent-s);
+}
+
+.new-post-section {
+  margin-bottom: var(--indent-base);
+}
+
+.new-post-form textarea {
+  display: block;
+}
+
+.posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--indent-base);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
