@@ -1,0 +1,6 @@
+.profile-info {
+  display: flex;
+  gap: var(--indent-base);
+  padding: var(--indent-s);
+  margin-bottom: var(--indent-base);
+}
