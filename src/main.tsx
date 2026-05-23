@@ -5,10 +5,15 @@ import App from "./App.tsx";
 import { BrowserRouter } from "react-router-dom";
 import { store } from "./store/store.ts";
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <BrowserRouter>
-      <App rootState={store.getState()} />
-    </BrowserRouter>
-  </StrictMode>,
-);
+const rerenderDomTree = () => {
+  createRoot(document.getElementById("root")!).render(
+    <StrictMode>
+      <BrowserRouter>
+        <App rootState={store.getState()} />
+      </BrowserRouter>
+    </StrictMode>,
+  );
+};
+
+rerenderDomTree();
+store.subscribe(rerenderDomTree);

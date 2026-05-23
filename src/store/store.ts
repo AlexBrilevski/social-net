@@ -23,7 +23,9 @@ export type RootAppState = {
 
 type Store = {
   _state: RootAppState,
+  _callSubscriber: () => void,
   getState: () => RootAppState,
+  subscribe: (observer: () => void) => void,
 };
 
 const DUMMY_POSTS = [
@@ -43,7 +45,13 @@ export const store: Store = {
       newPostText: "",
     }
   },
+  _callSubscriber() {
+    console.log('State updated');
+  },
   getState() {
     return this._state;
+  },
+  subscribe(observer) {
+    this._callSubscriber = observer;
   },
 };
