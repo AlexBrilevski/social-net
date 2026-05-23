@@ -7,12 +7,13 @@ import styles from "./PostsList.module.css";
 type PostsListProps = {
   postsData: Array<PostType>,
   newPostText: string,
+  updateNewPostText: (text: string) => void,
 };
 
-const PostsList: FC<PostsListProps> = ({ postsData, newPostText }) => {
+const PostsList: FC<PostsListProps> = ({ postsData, newPostText, updateNewPostText }) => {
   const onChangeNewPostText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
-    console.log(value);
+    updateNewPostText(value);
   };
 
   return (

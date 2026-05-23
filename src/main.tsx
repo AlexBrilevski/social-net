@@ -5,11 +5,16 @@ import App from "./App.tsx";
 import { BrowserRouter } from "react-router-dom";
 import { store } from "./store/store.ts";
 
+const root = createRoot(document.getElementById("root")!);
+
 const rerenderDomTree = () => {
-  createRoot(document.getElementById("root")!).render(
+  root.render(
     <StrictMode>
       <BrowserRouter>
-        <App rootState={store.getState()} />
+        <App 
+          rootState={store.getState()} 
+          updateNewPostText={store.updateNewPostText.bind(store)}
+        />
       </BrowserRouter>
     </StrictMode>,
   );

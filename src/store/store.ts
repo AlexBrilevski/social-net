@@ -26,6 +26,8 @@ type Store = {
   _callSubscriber: () => void,
   getState: () => RootAppState,
   subscribe: (observer: () => void) => void,
+  updateNewPostText: (text: string) => void,
+  // addNewPost: (postText: string) => void,
 };
 
 const DUMMY_POSTS = [
@@ -53,5 +55,9 @@ export const store: Store = {
   },
   subscribe(observer) {
     this._callSubscriber = observer;
+  },
+  updateNewPostText(text) {
+    this._state.profilePage.newPostText = text;
+    this._callSubscriber();
   },
 };

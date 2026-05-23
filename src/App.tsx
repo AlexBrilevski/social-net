@@ -10,9 +10,10 @@ import type { RootAppState } from "./store/store";
 
 type AppProps = {
   rootState: RootAppState,
+  updateNewPostText: (text: string) => void,
 };
 
-function App({ rootState }: AppProps) {
+function App({ rootState, updateNewPostText }: AppProps) {
   return (
     <>
       <Header />
@@ -21,7 +22,15 @@ function App({ rootState }: AppProps) {
         <Routes>
           <Route index element={<SignIn />} />
           <Route path="login" element={<SignIn />} />
-          <Route path="profile" element={<Profile {...rootState.profilePage} />} />
+          <Route
+            path="profile"
+            element={
+              <Profile
+                {...rootState.profilePage}
+                updateNewPostText={updateNewPostText}
+              />
+            }
+          />
           <Route path="messages" element={<Messages />} />
         </Routes>
       </main>

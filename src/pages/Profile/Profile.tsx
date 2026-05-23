@@ -3,11 +3,24 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import PostsList from "./PostsList/PostsList";
 import type { ProfilePage } from "../../store/store";
 
-const Profile: FC<ProfilePage> = ({ profile, postsData, newPostText }) => {
+type ProfilePageProps = ProfilePage & {
+  updateNewPostText: (text: string) => void,
+};
+
+const Profile: FC<ProfilePageProps> = ({
+  profile,
+  postsData,
+  newPostText,
+  updateNewPostText,
+}) => {
   return (
     <div>
       <ProfileInfo profile={profile} />
-      <PostsList postsData={postsData} newPostText={newPostText} />
+      <PostsList 
+      postsData={postsData} 
+      newPostText={newPostText} 
+      updateNewPostText={updateNewPostText}
+      />
     </div>
   );
 };
