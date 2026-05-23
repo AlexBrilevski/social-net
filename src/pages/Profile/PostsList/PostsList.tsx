@@ -1,4 +1,4 @@
-import type { FC, ChangeEvent } from "react";
+import type { FC, ChangeEvent, SubmitEvent } from "react";
 import type { PostType } from "../../../store/store";
 import Post from "./Post/Post";
 
@@ -8,19 +8,33 @@ type PostsListProps = {
   postsData: Array<PostType>,
   newPostText: string,
   updateNewPostText: (text: string) => void,
+  addNewPost: (postText: string) => void,
 };
 
-const PostsList: FC<PostsListProps> = ({ postsData, newPostText, updateNewPostText }) => {
-  const onChangeNewPostText = (e: ChangeEvent<HTMLTextAreaElement>) => {
+const PostsList: FC<PostsListProps> = ({
+  postsData,
+  newPostText,
+  updateNewPostText,
+  addNewPost,
+}) => {
+  const onNewPostTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     updateNewPostText(value);
+  };
+
+  const onAddNewPostSubmit = (e: SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (newPostText.trim() !== "") {
+      addNewPost(newPostText);
+    }
   };
 
   return (
     <div className={styles["user-posts"]}>
       <h2>My Posts</h2>
       <div className={styles["new-post-section"]}>
-        <form className={styles["new-post-form"]}>
+        <form className={styles["new-post-form"]} onSubmit={onAddNewPostSubmit}>
           <div className="form-group">
             <label htmlFor="new-post-text">New post</label>
             <textarea
@@ -28,7 +42,7 @@ const PostsList: FC<PostsListProps> = ({ postsData, newPostText, updateNewPostTe
               className="form-control"
               value={newPostText}
               placeholder="Type your post here"
-              onChange={onChangeNewPostText}
+              onChange={onNewPostTextChange}
             >
             </textarea>
           </div>

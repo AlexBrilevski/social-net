@@ -14,6 +14,7 @@ const rerenderDomTree = () => {
         <App 
           rootState={store.getState()} 
           updateNewPostText={store.updateNewPostText.bind(store)}
+          addNewPost={store.addNewPost.bind(store)}
         />
       </BrowserRouter>
     </StrictMode>,

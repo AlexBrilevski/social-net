@@ -5,6 +5,7 @@ import type { ProfilePage } from "../../store/store";
 
 type ProfilePageProps = ProfilePage & {
   updateNewPostText: (text: string) => void,
+  addNewPost: (postText: string) => void,
 };
 
 const Profile: FC<ProfilePageProps> = ({
@@ -12,6 +13,7 @@ const Profile: FC<ProfilePageProps> = ({
   postsData,
   newPostText,
   updateNewPostText,
+  addNewPost,
 }) => {
   return (
     <div>
@@ -20,6 +22,7 @@ const Profile: FC<ProfilePageProps> = ({
       postsData={postsData} 
       newPostText={newPostText} 
       updateNewPostText={updateNewPostText}
+      addNewPost={addNewPost}
       />
     </div>
   );

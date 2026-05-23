@@ -11,9 +11,10 @@ import type { RootAppState } from "./store/store";
 type AppProps = {
   rootState: RootAppState,
   updateNewPostText: (text: string) => void,
+  addNewPost: (postText: string) => void,
 };
 
-function App({ rootState, updateNewPostText }: AppProps) {
+function App({ rootState, updateNewPostText, addNewPost }: AppProps) {
   return (
     <>
       <Header />
@@ -28,6 +29,7 @@ function App({ rootState, updateNewPostText }: AppProps) {
               <Profile
                 {...rootState.profilePage}
                 updateNewPostText={updateNewPostText}
+                addNewPost={addNewPost}
               />
             }
           />
