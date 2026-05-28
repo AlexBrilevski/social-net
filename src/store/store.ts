@@ -28,7 +28,7 @@ export type MessageType = {
   text: string,
 };
 
-type Messages = {
+export type Messages = {
   [chatId: string]: {
     messages: Array<MessageType>,
     newMessageText: string,
@@ -73,8 +73,8 @@ const DUMMY_MESSAGES = {
   "c1": {
     messages: [
       { id: "m1", userId: "u1", text: "Hi!" },
-      { id: "m1", userId: "u0", text: "Hello!" },
-      { id: "m2", userId: "u1", text: "How's things?" },
+      { id: "m2", userId: "u0", text: "Hello!" },
+      { id: "m3", userId: "u1", text: "How's things?" },
     ],
     newMessageText: "",
   },

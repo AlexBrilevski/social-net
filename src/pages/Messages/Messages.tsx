@@ -1,8 +1,14 @@
 import type { FC } from "react";
+import type { MessagesPage } from "../../store/store";
+import Chats from "./Chats/Chats";
+import { Outlet } from "react-router-dom";
 
-const Messages: FC = () => {
+const Messages: FC<MessagesPage> = ({ chats }) => {
   return (
-    <div>Messages</div>
+    <div>
+      <Chats chats={chats} />
+      <Outlet/>
+    </div>
   );
 };
 

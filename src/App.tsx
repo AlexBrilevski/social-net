@@ -7,6 +7,7 @@ import Messages from "./pages/Messages/Messages";
 
 import "./App.css";
 import type { RootAppState } from "./store/store";
+import Chat from "./pages/Messages/Chat/Chat";
 
 type AppProps = {
   rootState: RootAppState,
@@ -33,7 +34,9 @@ function App({ rootState, updateNewPostText, addNewPost }: AppProps) {
               />
             }
           />
-          <Route path="messages" element={<Messages />} />
+          <Route path="messages" element={<Messages {...rootState.messagesPage} />}>
+            <Route path=":chatId" element={<Chat messagesData={rootState.messagesPage.messages} />} />
+          </Route>
         </Routes>
       </main>
     </>
