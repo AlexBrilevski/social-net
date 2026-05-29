@@ -3,11 +3,13 @@ import type { MessagesPage } from "../../store/store";
 import Chats from "./Chats/Chats";
 import { Outlet } from "react-router-dom";
 
+import styles from "./Messages.module.css";
+
 const Messages: FC<MessagesPage> = ({ chats }) => {
   return (
-    <div>
+    <div className={styles["messages-page-content"]}>
       <Chats chats={chats} />
-      <Outlet/>
+      <Outlet />
     </div>
   );
 };

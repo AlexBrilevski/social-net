@@ -1,0 +1,15 @@
+.chat {
+  padding: var(--indent-s);
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: var(--indent-s);
+  margin-bottom: var(--indent-base);
+}
+
+.new-message-form textarea {
+  display: block;
+  margin-bottom: var(--indent-s);
+}

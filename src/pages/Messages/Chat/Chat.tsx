@@ -2,12 +2,15 @@ import type { ChangeEvent, FC } from "react";
 import type { Messages } from "../../../store/store";
 import Message from "./Message/Message";
 
+import styles from "./Chat.module.css";
+
 type ChatProps = {
   messagesData: Messages,
 };
 
 const Chat: FC<ChatProps> = (props) => {
   const chatId = "c1";
+  const authUserId = "u0";
   const messagesData = props.messagesData[chatId];
   const messages = messagesData.messages;
   const newMessageText = messagesData.newMessageText;
@@ -17,17 +20,32 @@ const Chat: FC<ChatProps> = (props) => {
   };
 
   return (
-    <div>
-      <div>
-        {messages.map(message => <Message key={message.id} {...message} />)}
+    <div className={styles["chat"]}>
+      <div className={styles["messages"]}>
+        {messages.map(message => (
+          <Message
+            key={message.id}
+            authUserId={authUserId}
+            {...message}
+          />
+        ))}
       </div>
-      <form>
-        <textarea
-          value={newMessageText}
-          placeholder="Type your message here"
-          onChange={onNewMessageTextChange}
-        />
-        <button>Send</button>
+      <form className={styles["new-message-form"]}>
+        <div className="form-group">
+          <label htmlFor="new-message-text">New message</label>
+          <textarea
+            id="new-message-text"
+            className="form-control"
+            name="new-message-text"
+            value={newMessageText}
+            placeholder="Type your message here"
+            onChange={onNewMessageTextChange}
+          >
+          </textarea>
+        </div>
+        <div className="from-actions">
+          <button>Send</button>
+        </div>
       </form>
     </div>
   );
