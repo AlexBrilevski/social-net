@@ -40,6 +40,7 @@ const PostsList: FC<PostsListProps> = ({
             <textarea
               id="new-post-text"
               className="form-control"
+              name="new-post-text"
               value={newPostText}
               placeholder="Type your post here"
               onChange={onNewPostTextChange}
