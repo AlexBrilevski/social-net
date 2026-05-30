@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import styles from "./Chats.module.css";
 
 type ChatsProps = {
-  chats: Array<ChatType>
+  chats: Array<ChatType>,
 };
 
 const Chats: FC<ChatsProps> = ({ chats }) => {

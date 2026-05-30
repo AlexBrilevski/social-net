@@ -53,6 +53,8 @@ type Store = {
   subscribe: (observer: () => void) => void,
   updateNewPostText: (text: string) => void,
   addNewPost: (postText: string) => void,
+  updateNewMessageText: (chatId: string, text: string) => void,
+  sendNewMessageToChat: (chatId: string, userId: string, text: string) => void,
 };
 
 const DUMMY_POSTS = [
@@ -93,6 +95,10 @@ const DUMMY_MESSAGES = {
   },
 };
 
+function generateId(): string {
+  return Date.now().toString(36) + Math.random().toString(36).substring(2);
+}
+
 export const store: Store = {
   _state: {
     isAuth: false,
@@ -121,13 +127,28 @@ export const store: Store = {
   },
   addNewPost(postText) {
     const newPost: PostType = {
-      id: Date.now().toString(36) + Math.random().toString(36).substring(2),
+      id: generateId(),
       postText,
       likesCount: 0,
     };
 
     this._state.profilePage.postsData.unshift(newPost);
     this._state.profilePage.newPostText = "";
+    this._callSubscriber();
+  },
+  updateNewMessageText(chatId, text) {
+    this._state.messagesPage.messages[chatId].newMessageText = text;
+    this._callSubscriber();
+  },
+  sendNewMessageToChat(chatId, userId, text) {
+    const newMessage: MessageType = {
+      id: generateId(),
+      userId,
+      text,
+    };
+
+    this._state.messagesPage.messages[chatId].messages.push(newMessage);
+    this._state.messagesPage.messages[chatId].newMessageText = "";
     this._callSubscriber();
   },
 };

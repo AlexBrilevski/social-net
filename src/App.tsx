@@ -13,9 +13,17 @@ type AppProps = {
   rootState: RootAppState,
   updateNewPostText: (text: string) => void,
   addNewPost: (postText: string) => void,
+  updateNewMessageText: (chatId: string, text: string) => void,
+  sendNewMessageToChat: (chatId: string, userId: string, text: string) => void,
 };
 
-function App({ rootState, updateNewPostText, addNewPost }: AppProps) {
+function App({
+  rootState,
+  updateNewPostText,
+  addNewPost,
+  updateNewMessageText,
+  sendNewMessageToChat
+}: AppProps) {
   return (
     <>
       <Header />
@@ -35,7 +43,16 @@ function App({ rootState, updateNewPostText, addNewPost }: AppProps) {
             }
           />
           <Route path="messages" element={<Messages {...rootState.messagesPage} />}>
-            <Route path=":chatId" element={<Chat messagesData={rootState.messagesPage.messages} />} />
+            <Route
+              path=":chatId"
+              element={
+                <Chat
+                  messagesData={rootState.messagesPage.messages}
+                  updateNewMessageText={updateNewMessageText}
+                  sendNewMessageToChat={sendNewMessageToChat}
+                />
+              }
+            />
           </Route>
         </Routes>
       </main>

@@ -1,4 +1,4 @@
-import type { ChangeEvent, FC } from "react";
+import type { ChangeEvent, FC, SubmitEvent } from "react";
 import type { Messages } from "../../../store/store";
 import Message from "./Message/Message";
 
@@ -6,6 +6,8 @@ import styles from "./Chat.module.css";
 
 type ChatProps = {
   messagesData: Messages,
+  updateNewMessageText: (chatId: string, text: string) => void,
+  sendNewMessageToChat: (chatId: string, userId: string, text: string) => void,
 };
 
 const Chat: FC<ChatProps> = (props) => {
@@ -16,7 +18,12 @@ const Chat: FC<ChatProps> = (props) => {
   const newMessageText = messagesData.newMessageText;
 
   const onNewMessageTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    console.log(e.target.value);
+    props.updateNewMessageText(chatId, e.target.value);
+  };
+
+  const onSendMessageFormSubmit = (e: SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    props.sendNewMessageToChat(chatId, authUserId, newMessageText);
   };
 
   return (
@@ -30,7 +37,7 @@ const Chat: FC<ChatProps> = (props) => {
           />
         ))}
       </div>
-      <form className={styles["new-message-form"]}>
+      <form className={styles["new-message-form"]} onSubmit={onSendMessageFormSubmit}>
         <div className="form-group">
           <label htmlFor="new-message-text">New message</label>
           <textarea

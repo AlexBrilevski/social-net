@@ -11,10 +11,12 @@ const rerenderDomTree = () => {
   root.render(
     <StrictMode>
       <BrowserRouter>
-        <App 
-          rootState={store.getState()} 
+        <App
+          rootState={store.getState()}
           updateNewPostText={store.updateNewPostText.bind(store)}
           addNewPost={store.addNewPost.bind(store)}
+          updateNewMessageText={store.updateNewMessageText.bind(store)}
+          sendNewMessageToChat={store.sendNewMessageToChat.bind(store)}
         />
       </BrowserRouter>
     </StrictMode>,
