@@ -6,10 +6,6 @@
   margin-bottom: var(--indent-base);
 }
 
-.new-post-form textarea {
-  display: block;
-}
-
 .posts-list {
   display: flex;
   flex-direction: column;

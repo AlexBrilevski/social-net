@@ -47,7 +47,7 @@ const PostsList: FC<PostsListProps> = ({
             >
             </textarea>
           </div>
-          <div className="from-actions">
+          <div className="form-actions">
             <button>Add new post</button>
           </div>
         </form>

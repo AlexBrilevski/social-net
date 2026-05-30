@@ -50,7 +50,7 @@ const Chat: FC<ChatProps> = (props) => {
           >
           </textarea>
         </div>
-        <div className="from-actions">
+        <div className="form-actions">
           <button>Send</button>
         </div>
       </form>

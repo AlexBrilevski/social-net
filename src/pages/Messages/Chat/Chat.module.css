@@ -8,8 +8,3 @@
   gap: var(--indent-s);
   margin-bottom: var(--indent-base);
 }
-
-.new-message-form textarea {
-  display: block;
-  margin-bottom: var(--indent-s);
-}
