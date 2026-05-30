@@ -1,0 +1,10 @@
+.chat {
+  padding: var(--indent-s);
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: var(--indent-s);
+  margin-bottom: var(--indent-base);
+}

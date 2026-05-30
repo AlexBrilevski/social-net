@@ -1,0 +1,10 @@
+.page-title {
+  text-align: center;
+}
+
+.signin-form {
+  width: 100%;
+  max-width: 400px;
+  margin: var(--indent-base) auto;
+  padding: var(--indent-s) var(--indent-base);
+}

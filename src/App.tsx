@@ -6,8 +6,24 @@ import Profile from "./pages/Profile/Profile";
 import Messages from "./pages/Messages/Messages";
 
 import "./App.css";
+import type { RootAppState } from "./store/store";
+import Chat from "./pages/Messages/Chat/Chat";
 
-function App() {
+type AppProps = {
+  rootState: RootAppState,
+  updateNewPostText: (text: string) => void,
+  addNewPost: (postText: string) => void,
+  updateNewMessageText: (chatId: string, text: string) => void,
+  sendNewMessageToChat: (chatId: string, userId: string, text: string) => void,
+};
+
+function App({
+  rootState,
+  updateNewPostText,
+  addNewPost,
+  updateNewMessageText,
+  sendNewMessageToChat
+}: AppProps) {
   return (
     <>
       <Header />
@@ -16,8 +32,28 @@ function App() {
         <Routes>
           <Route index element={<SignIn />} />
           <Route path="login" element={<SignIn />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="messages" element={<Messages />} />
+          <Route
+            path="profile"
+            element={
+              <Profile
+                {...rootState.profilePage}
+                updateNewPostText={updateNewPostText}
+                addNewPost={addNewPost}
+              />
+            }
+          />
+          <Route path="messages" element={<Messages {...rootState.messagesPage} />}>
+            <Route
+              path=":chatId"
+              element={
+                <Chat
+                  messagesData={rootState.messagesPage.messages}
+                  updateNewMessageText={updateNewMessageText}
+                  sendNewMessageToChat={sendNewMessageToChat}
+                />
+              }
+            />
+          </Route>
         </Routes>
       </main>
     </>

@@ -1,8 +1,16 @@
 import type { FC } from "react";
+import type { MessagesPage } from "../../store/store";
+import Chats from "./Chats/Chats";
+import { Outlet } from "react-router-dom";
 
-const Messages: FC = () => {
+import styles from "./Messages.module.css";
+
+const Messages: FC<MessagesPage> = ({ chats }) => {
   return (
-    <div>Messages</div>
+    <div className={styles["messages-page-content"]}>
+      <Chats chats={chats} />
+      <Outlet />
+    </div>
   );
 };
 

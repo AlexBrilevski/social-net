@@ -1,0 +1,20 @@
+.message {
+  display: flex;
+}
+
+.message .text {
+  padding: var(--indent-s);
+  border-radius: var(--border-radius-default);
+}
+
+.message.incoming .text {
+  background-color: darkblue;
+}
+
+.message.outgoing {
+  justify-content: flex-end;
+}
+
+.message.outgoing .text {
+  background-color: cadetblue;
+}

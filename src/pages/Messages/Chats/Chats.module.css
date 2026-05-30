@@ -1,0 +1,19 @@
+.chats {
+  padding: var(--indent-s) 0;
+}
+
+.chats-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chat-list-item {
+  display: block;
+  padding: var(--indent-s);
+}
+
+.chat-list-item.active {
+  background: var(--accent-bg);
+  color: var(--accent);
+}
