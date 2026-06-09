@@ -1,13 +1,12 @@
 import type { ChangeEvent, FC, SubmitEvent } from "react";
-import type { Messages } from "../../../store/store";
+import type { Messages, ActionType } from "../../../store/store";
 import Message from "./Message/Message";
 
 import styles from "./Chat.module.css";
 
 type ChatProps = {
   messagesData: Messages,
-  updateNewMessageText: (chatId: string, text: string) => void,
-  sendNewMessageToChat: (chatId: string, userId: string, text: string) => void,
+  dispatch: (action: ActionType) => void,
 };
 
 const Chat: FC<ChatProps> = (props) => {
@@ -18,12 +17,21 @@ const Chat: FC<ChatProps> = (props) => {
   const newMessageText = messagesData.newMessageText;
 
   const onNewMessageTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    props.updateNewMessageText(chatId, e.target.value);
+    props.dispatch({
+      type: "messages/UPDATE-NEW-MESSAGE-TEXT",
+      chatId,
+      text: e.target.value
+    });
   };
 
   const onSendMessageFormSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    props.sendNewMessageToChat(chatId, authUserId, newMessageText);
+    props.dispatch({
+      type: "messages/SEND-NEW-MESSAGE-TO-CHAT",
+      chatId,
+      userId: authUserId,
+      text: newMessageText
+    });
   };
 
   return (

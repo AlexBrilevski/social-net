@@ -46,15 +46,41 @@ export type RootAppState = {
   messagesPage: MessagesPage,
 };
 
+type UpdateNewPostTextAction = {
+  type: "profile/UPDATE-NEW-POST-TEXT",
+  text: string,
+};
+
+type AddNewPostAction = {
+  type: "profile/ADD-NEW-POST",
+  postText: string,
+};
+
+type UpdateNewMessageTextAction = {
+  type: "messages/UPDATE-NEW-MESSAGE-TEXT",
+  chatId: string,
+  text: string,
+};
+
+type SendNewMessageToChatAction = {
+  type: "messages/SEND-NEW-MESSAGE-TO-CHAT",
+  chatId: string,
+  userId: string,
+  text: string,
+};
+
+export type ActionType =
+  UpdateNewPostTextAction |
+  AddNewPostAction |
+  UpdateNewMessageTextAction |
+  SendNewMessageToChatAction;
+
 type Store = {
   _state: RootAppState,
   _callSubscriber: () => void,
   getState: () => RootAppState,
   subscribe: (observer: () => void) => void,
-  updateNewPostText: (text: string) => void,
-  addNewPost: (postText: string) => void,
-  updateNewMessageText: (chatId: string, text: string) => void,
-  sendNewMessageToChat: (chatId: string, userId: string, text: string) => void,
+  dispatch: (action: ActionType) => void,
 };
 
 const DUMMY_POSTS = [
@@ -121,34 +147,38 @@ export const store: Store = {
   subscribe(observer) {
     this._callSubscriber = observer;
   },
-  updateNewPostText(text) {
-    this._state.profilePage.newPostText = text;
-    this._callSubscriber();
-  },
-  addNewPost(postText) {
-    const newPost: PostType = {
-      id: generateId(),
-      postText,
-      likesCount: 0,
-    };
+  dispatch(action) {
+    switch (action.type) {
+      case "profile/UPDATE-NEW-POST-TEXT":
+        this._state.profilePage.newPostText = action.text;
+        this._callSubscriber();
+        break;
+      case "profile/ADD-NEW-POST":
+        const newPost: PostType = {
+          id: generateId(),
+          postText: action.postText,
+          likesCount: 0,
+        };
 
-    this._state.profilePage.postsData.unshift(newPost);
-    this._state.profilePage.newPostText = "";
-    this._callSubscriber();
-  },
-  updateNewMessageText(chatId, text) {
-    this._state.messagesPage.messages[chatId].newMessageText = text;
-    this._callSubscriber();
-  },
-  sendNewMessageToChat(chatId, userId, text) {
-    const newMessage: MessageType = {
-      id: generateId(),
-      userId,
-      text,
-    };
+        this._state.profilePage.postsData.unshift(newPost);
+        this._state.profilePage.newPostText = "";
+        this._callSubscriber();
+        break;
+      case "messages/UPDATE-NEW-MESSAGE-TEXT":
+        this._state.messagesPage.messages[action.chatId].newMessageText = action.text;
+        this._callSubscriber();
+        break;
+      case "messages/SEND-NEW-MESSAGE-TO-CHAT":
+        const newMessage: MessageType = {
+          id: generateId(),
+          userId: action.userId,
+          text: action.text,
+        };
 
-    this._state.messagesPage.messages[chatId].messages.push(newMessage);
-    this._state.messagesPage.messages[chatId].newMessageText = "";
-    this._callSubscriber();
+        this._state.messagesPage.messages[action.chatId].messages.push(newMessage);
+        this._state.messagesPage.messages[action.chatId].newMessageText = "";
+        this._callSubscriber();
+        break;
+    }
   },
 };

@@ -6,23 +6,17 @@ import Profile from "./pages/Profile/Profile";
 import Messages from "./pages/Messages/Messages";
 
 import "./App.css";
-import type { RootAppState } from "./store/store";
+import type { RootAppState, ActionType } from "./store/store";
 import Chat from "./pages/Messages/Chat/Chat";
 
 type AppProps = {
   rootState: RootAppState,
-  updateNewPostText: (text: string) => void,
-  addNewPost: (postText: string) => void,
-  updateNewMessageText: (chatId: string, text: string) => void,
-  sendNewMessageToChat: (chatId: string, userId: string, text: string) => void,
+  dispatch: (action: ActionType) => void,
 };
 
 function App({
   rootState,
-  updateNewPostText,
-  addNewPost,
-  updateNewMessageText,
-  sendNewMessageToChat
+  dispatch,
 }: AppProps) {
   return (
     <>
@@ -37,8 +31,7 @@ function App({
             element={
               <Profile
                 {...rootState.profilePage}
-                updateNewPostText={updateNewPostText}
-                addNewPost={addNewPost}
+                dispatch={dispatch}
               />
             }
           />
@@ -48,8 +41,7 @@ function App({
               element={
                 <Chat
                   messagesData={rootState.messagesPage.messages}
-                  updateNewMessageText={updateNewMessageText}
-                  sendNewMessageToChat={sendNewMessageToChat}
+                  dispatch={dispatch}
                 />
               }
             />
