@@ -46,28 +46,20 @@ export type RootAppState = {
   messagesPage: MessagesPage,
 };
 
-type UpdateNewPostTextAction = {
-  type: "profile/UPDATE-NEW-POST-TEXT",
-  text: string,
-};
+type UpdateNewPostTextAction = ReturnType<typeof updateNewPostTextAC>;
 
-type AddNewPostAction = {
-  type: "profile/ADD-NEW-POST",
-  postText: string,
-};
+type AddNewPostAction = ReturnType<typeof addNewPostAC>;
 
-type UpdateNewMessageTextAction = {
-  type: "messages/UPDATE-NEW-MESSAGE-TEXT",
-  chatId: string,
-  text: string,
-};
+type UpdateNewMessageTextAction = ReturnType<typeof updateNewMessageTextAC>;
 
-type SendNewMessageToChatAction = {
-  type: "messages/SEND-NEW-MESSAGE-TO-CHAT",
-  chatId: string,
-  userId: string,
-  text: string,
-};
+type SendNewMessageToChatAction = ReturnType<typeof sendNewMessageToChatAC>;
+
+const ACTION_TYPES = {
+  UPDATE_NEW_POST_TEXT: "profile/UPDATE-NEW-POST-TEXT",
+  ADD_NEW_POST: "profile/ADD-NEW-POST",
+  UPDATE_NEW_MESSAGE_TEXT: "messages/UPDATE-NEW-MESSAGE-TEXT",
+  SEND_NEW_MESSAGE_TO_CHAT: "messages/SEND-NEW-MESSAGE-TO-CHAT",
+} as const;
 
 export type ActionType =
   UpdateNewPostTextAction |
@@ -149,11 +141,11 @@ export const store: Store = {
   },
   dispatch(action) {
     switch (action.type) {
-      case "profile/UPDATE-NEW-POST-TEXT":
+      case ACTION_TYPES.UPDATE_NEW_POST_TEXT:
         this._state.profilePage.newPostText = action.text;
         this._callSubscriber();
         break;
-      case "profile/ADD-NEW-POST":
+      case ACTION_TYPES.ADD_NEW_POST:
         const newPost: PostType = {
           id: generateId(),
           postText: action.postText,
@@ -164,11 +156,11 @@ export const store: Store = {
         this._state.profilePage.newPostText = "";
         this._callSubscriber();
         break;
-      case "messages/UPDATE-NEW-MESSAGE-TEXT":
+      case ACTION_TYPES.UPDATE_NEW_MESSAGE_TEXT:
         this._state.messagesPage.messages[action.chatId].newMessageText = action.text;
         this._callSubscriber();
         break;
-      case "messages/SEND-NEW-MESSAGE-TO-CHAT":
+      case ACTION_TYPES.SEND_NEW_MESSAGE_TO_CHAT:
         const newMessage: MessageType = {
           id: generateId(),
           userId: action.userId,
@@ -181,4 +173,20 @@ export const store: Store = {
         break;
     }
   },
+};
+
+export const updateNewPostTextAC = (text: string) => {
+  return { type: ACTION_TYPES.UPDATE_NEW_POST_TEXT, text };
+};
+
+export const addNewPostAC = (postText: string) => {
+  return { type: ACTION_TYPES.ADD_NEW_POST, postText };
+};
+
+export const updateNewMessageTextAC = (chatId: string, text: string) => {
+  return { type: ACTION_TYPES.UPDATE_NEW_MESSAGE_TEXT, chatId, text };
+};
+
+export const sendNewMessageToChatAC = (chatId: string, userId: string, text: string) => {
+  return { type: ACTION_TYPES.SEND_NEW_MESSAGE_TO_CHAT, chatId, userId, text };
 };

@@ -1,5 +1,5 @@
 import type { FC, ChangeEvent, SubmitEvent } from "react";
-import type { PostType, ActionType } from "../../../store/store";
+import { type PostType, type ActionType, updateNewPostTextAC, addNewPostAC } from "../../../store/store";
 import Post from "./Post/Post";
 
 import styles from "./PostsList.module.css";
@@ -17,14 +17,14 @@ const PostsList: FC<PostsListProps> = ({
 }) => {
   const onNewPostTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
-    dispatch({type: "profile/UPDATE-NEW-POST-TEXT", text: value});
+    dispatch(updateNewPostTextAC(value));
   };
 
   const onAddNewPostSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (newPostText.trim() !== "") {
-      dispatch({type: "profile/ADD-NEW-POST", postText: newPostText});
+      dispatch(addNewPostAC(newPostText));
     }
   };
 
