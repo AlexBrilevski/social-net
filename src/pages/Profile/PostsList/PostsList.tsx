@@ -1,5 +1,6 @@
 import type { FC, ChangeEvent, SubmitEvent } from "react";
-import { type PostType, type ActionType, updateNewPostTextAC, addNewPostAC } from "../../../store/store";
+import { type PostType, type ActionType } from "../../../store/store";
+import { addNewPostAC, updateNewPostTextAC } from "../../../store/profileReducer";
 import Post from "./Post/Post";
 
 import styles from "./PostsList.module.css";

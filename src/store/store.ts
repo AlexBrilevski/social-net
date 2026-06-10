@@ -1,3 +1,6 @@
+import type { ProfileAction } from "./profileReducer";
+import profileReducer from "./profileReducer";
+
 export type ProfileType = {
   userId: string,
   fullName: string,
@@ -46,10 +49,6 @@ export type RootAppState = {
   messagesPage: MessagesPage,
 };
 
-type UpdateNewPostTextAction = ReturnType<typeof updateNewPostTextAC>;
-
-type AddNewPostAction = ReturnType<typeof addNewPostAC>;
-
 type UpdateNewMessageTextAction = ReturnType<typeof updateNewMessageTextAC>;
 
 type SendNewMessageToChatAction = ReturnType<typeof sendNewMessageToChatAC>;
@@ -62,8 +61,7 @@ const ACTION_TYPES = {
 } as const;
 
 export type ActionType =
-  UpdateNewPostTextAction |
-  AddNewPostAction |
+  ProfileAction |
   UpdateNewMessageTextAction |
   SendNewMessageToChatAction;
 
@@ -113,7 +111,7 @@ const DUMMY_MESSAGES = {
   },
 };
 
-function generateId(): string {
+export function generateId(): string {
   return Date.now().toString(36) + Math.random().toString(36).substring(2);
 }
 
@@ -141,21 +139,6 @@ export const store: Store = {
   },
   dispatch(action) {
     switch (action.type) {
-      case ACTION_TYPES.UPDATE_NEW_POST_TEXT:
-        this._state.profilePage.newPostText = action.text;
-        this._callSubscriber();
-        break;
-      case ACTION_TYPES.ADD_NEW_POST:
-        const newPost: PostType = {
-          id: generateId(),
-          postText: action.postText,
-          likesCount: 0,
-        };
-
-        this._state.profilePage.postsData.unshift(newPost);
-        this._state.profilePage.newPostText = "";
-        this._callSubscriber();
-        break;
       case ACTION_TYPES.UPDATE_NEW_MESSAGE_TEXT:
         this._state.messagesPage.messages[action.chatId].newMessageText = action.text;
         this._callSubscriber();
@@ -172,15 +155,10 @@ export const store: Store = {
         this._callSubscriber();
         break;
     }
+
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._callSubscriber();
   },
-};
-
-export const updateNewPostTextAC = (text: string) => {
-  return { type: ACTION_TYPES.UPDATE_NEW_POST_TEXT, text };
-};
-
-export const addNewPostAC = (postText: string) => {
-  return { type: ACTION_TYPES.ADD_NEW_POST, postText };
 };
 
 export const updateNewMessageTextAC = (chatId: string, text: string) => {
