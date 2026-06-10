@@ -1,5 +1,6 @@
 import type { ChangeEvent, FC, SubmitEvent } from "react";
-import { type Messages, type ActionType, updateNewMessageTextAC, sendNewMessageToChatAC } from "../../../store/store";
+import { type Messages, type ActionType } from "../../../store/store";
+import { sendNewMessageToChatAC, updateNewMessageTextAC } from "../../../store/messagesReducer";
 import Message from "./Message/Message";
 
 import styles from "./Chat.module.css";

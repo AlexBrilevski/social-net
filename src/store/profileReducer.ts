@@ -11,11 +11,12 @@ export type ProfileAction =
 
 const profileReducer = (state: ProfilePage, action: ActionType): ProfilePage => {
   switch (action.type) {
-    case PROFILE_ACTION_TYPES.UPDATE_NEW_POST_TEXT:
+    case PROFILE_ACTION_TYPES.UPDATE_NEW_POST_TEXT: {
       state.newPostText = action.text;
 
       return state;
-    case PROFILE_ACTION_TYPES.ADD_NEW_POST:
+    }
+    case PROFILE_ACTION_TYPES.ADD_NEW_POST: {
       const newPost: PostType = {
         id: generateId(),
         postText: action.postText,
@@ -26,6 +27,7 @@ const profileReducer = (state: ProfilePage, action: ActionType): ProfilePage => 
       state.newPostText = "";
 
       return state;
+    }
     default: {
       return state;
     }

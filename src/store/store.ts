@@ -1,3 +1,5 @@
+import type { MessagesAction } from "./messagesReducer";
+import messagesReducer from "./messagesReducer";
 import type { ProfileAction } from "./profileReducer";
 import profileReducer from "./profileReducer";
 
@@ -49,21 +51,9 @@ export type RootAppState = {
   messagesPage: MessagesPage,
 };
 
-type UpdateNewMessageTextAction = ReturnType<typeof updateNewMessageTextAC>;
-
-type SendNewMessageToChatAction = ReturnType<typeof sendNewMessageToChatAC>;
-
-const ACTION_TYPES = {
-  UPDATE_NEW_POST_TEXT: "profile/UPDATE-NEW-POST-TEXT",
-  ADD_NEW_POST: "profile/ADD-NEW-POST",
-  UPDATE_NEW_MESSAGE_TEXT: "messages/UPDATE-NEW-MESSAGE-TEXT",
-  SEND_NEW_MESSAGE_TO_CHAT: "messages/SEND-NEW-MESSAGE-TO-CHAT",
-} as const;
-
 export type ActionType =
   ProfileAction |
-  UpdateNewMessageTextAction |
-  SendNewMessageToChatAction;
+  MessagesAction;
 
 type Store = {
   _state: RootAppState,
@@ -138,33 +128,8 @@ export const store: Store = {
     this._callSubscriber = observer;
   },
   dispatch(action) {
-    switch (action.type) {
-      case ACTION_TYPES.UPDATE_NEW_MESSAGE_TEXT:
-        this._state.messagesPage.messages[action.chatId].newMessageText = action.text;
-        this._callSubscriber();
-        break;
-      case ACTION_TYPES.SEND_NEW_MESSAGE_TO_CHAT:
-        const newMessage: MessageType = {
-          id: generateId(),
-          userId: action.userId,
-          text: action.text,
-        };
-
-        this._state.messagesPage.messages[action.chatId].messages.push(newMessage);
-        this._state.messagesPage.messages[action.chatId].newMessageText = "";
-        this._callSubscriber();
-        break;
-    }
-
     this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._state.messagesPage = messagesReducer(this._state.messagesPage, action);
     this._callSubscriber();
   },
-};
-
-export const updateNewMessageTextAC = (chatId: string, text: string) => {
-  return { type: ACTION_TYPES.UPDATE_NEW_MESSAGE_TEXT, chatId, text };
-};
-
-export const sendNewMessageToChatAC = (chatId: string, userId: string, text: string) => {
-  return { type: ACTION_TYPES.SEND_NEW_MESSAGE_TO_CHAT, chatId, userId, text };
 };
