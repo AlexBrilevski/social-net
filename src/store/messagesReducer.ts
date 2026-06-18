@@ -1,4 +1,4 @@
-import { type MessagesPage, type MessageType, generateId } from "./_store";
+import { generateId } from "./_store";
 import type { RootAction } from "./store";
 
 const MESSAGES_ACTION_TYPES = {
@@ -6,11 +6,40 @@ const MESSAGES_ACTION_TYPES = {
   SEND_NEW_MESSAGE_TO_CHAT: "messages/SEND-NEW-MESSAGE-TO-CHAT",
 } as const;
 
+export type ChatType = {
+  id: string,
+  userId: string,
+  name: string,
+};
+
+export type MessageType = {
+  id: string,
+  userId: string,
+  text: string,
+};
+
+export type Messages = {
+  [chatId: string]: {
+    messages: Array<MessageType>,
+    newMessageText: string,
+  },
+};
+
+export type MessagesPage = {
+  chats: Array<ChatType>,
+  messages: Messages,
+};
+
 export type MessagesAction =
   ReturnType<typeof updateNewMessageTextAC> |
   ReturnType<typeof sendNewMessageToChatAC>;
 
-const messagesReducer = (state: MessagesPage, action: RootAction) => {
+const initState = {
+  chats: [],
+  messages: {},
+};
+
+const messagesReducer = (state: MessagesPage = initState, action: RootAction): MessagesPage => {
   switch (action.type) {
     case MESSAGES_ACTION_TYPES.UPDATE_NEW_MESSAGE_TEXT: {
       state.messages[action.chatId].newMessageText = action.text;

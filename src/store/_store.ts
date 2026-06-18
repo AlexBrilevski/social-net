@@ -1,31 +1,7 @@
-import type { MessagesAction } from "./messagesReducer";
+import type { MessagesAction, MessagesPage } from "./messagesReducer";
 import messagesReducer from "./messagesReducer";
 import type { ProfileAction, ProfilePage } from "./profileReducer";
 import profileReducer from "./profileReducer";
-
-export type ChatType = {
-  id: string,
-  userId: string,
-  name: string,
-};
-
-export type MessageType = {
-  id: string,
-  userId: string,
-  text: string,
-};
-
-export type Messages = {
-  [chatId: string]: {
-    messages: Array<MessageType>,
-    newMessageText: string,
-  },
-};
-
-export type MessagesPage = {
-  chats: Array<ChatType>,
-  messages: Messages,
-};
 
 export type RootAppState = {
   isAuth: boolean,

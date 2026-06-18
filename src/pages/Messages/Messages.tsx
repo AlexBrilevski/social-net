@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import type { MessagesPage } from "../../store/_store";
+import type { MessagesPage } from "../../store/messagesReducer";
 import Chats from "./Chats/Chats";
 import { Outlet } from "react-router-dom";
 
