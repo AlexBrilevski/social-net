@@ -1,25 +1,7 @@
 import type { MessagesAction } from "./messagesReducer";
 import messagesReducer from "./messagesReducer";
-import type { ProfileAction } from "./profileReducer";
+import type { ProfileAction, ProfilePage } from "./profileReducer";
 import profileReducer from "./profileReducer";
-
-export type ProfileType = {
-  userId: string,
-  fullName: string,
-  avatar: string,
-};
-
-export type PostType = {
-  id: string,
-  postText: string,
-  likesCount: number,
-};
-
-export type ProfilePage = {
-  profile: ProfileType | null,
-  postsData: Array<PostType>,
-  newPostText: string,
-};
 
 export type ChatType = {
   id: string,

@@ -1,8 +1,8 @@
 import type { FC } from "react";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import PostsList from "./PostsList/PostsList";
-import type { ProfilePage } from "../../store/_store";
 import type { RootAction } from "../../store/store";
+import type { ProfilePage } from "../../store/profileReducer";
 
 type ProfilePageProps = ProfilePage & {
   dispatch: (action: RootAction) => void,

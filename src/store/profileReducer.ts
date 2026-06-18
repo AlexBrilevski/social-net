@@ -1,4 +1,4 @@
-import { type ProfilePage, type PostType, generateId } from "./_store";
+import { generateId } from "./_store";
 import type { RootAction } from "./store";
 
 const PROFILE_ACTION_TYPES = {
@@ -6,11 +6,35 @@ const PROFILE_ACTION_TYPES = {
   ADD_NEW_POST: "profile/ADD-NEW-POST",
 } as const;
 
+export type ProfileType = {
+  userId: string,
+  fullName: string,
+  avatar: string,
+};
+
+export type PostType = {
+  id: string,
+  postText: string,
+  likesCount: number,
+};
+
+export type ProfilePage = {
+  profile: ProfileType | null,
+  postsData: Array<PostType>,
+  newPostText: string,
+};
+
 export type ProfileAction =
   ReturnType<typeof updateNewPostTextAC> |
   ReturnType<typeof addNewPostAC>;
 
-const profileReducer = (state: ProfilePage, action: RootAction): ProfilePage => {
+const initState = {
+  profile: null,
+  postsData: [],
+  newPostText: "",
+};
+
+const profileReducer = (state: ProfilePage = initState, action: RootAction): ProfilePage => {
   switch (action.type) {
     case PROFILE_ACTION_TYPES.UPDATE_NEW_POST_TEXT: {
       state.newPostText = action.text;
