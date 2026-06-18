@@ -3,7 +3,7 @@ import messagesReducer from "./messagesReducer";
 import type { ProfileAction, ProfilePage } from "./profileReducer";
 import profileReducer from "./profileReducer";
 
-export type RootAppState = {
+type RootAppState = {
   isAuth: boolean,
   profilePage: ProfilePage,
   messagesPage: MessagesPage,

@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import type { RootAppState } from "./store/_store";
-import type { RootAction } from "./store/store";
+import type { RootState, RootAction } from "./store/store";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import SignIn from "./pages/SignIn/SignIn";
@@ -11,7 +10,7 @@ import Chat from "./pages/Messages/Chat/Chat";
 import "./App.css";
 
 type AppProps = {
-  rootState: RootAppState,
+  rootState: RootState,
   dispatch: (action: RootAction) => void,
 };
 
