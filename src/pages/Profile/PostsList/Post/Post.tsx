@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import type { PostType } from "../../../../store/_store";
+import type { PostType } from "../../../../store/profileReducer";
 
 import styles from "./Post.module.css";
 
