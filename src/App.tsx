@@ -1,17 +1,18 @@
 import { Routes, Route } from "react-router-dom";
+import type { RootAppState } from "./store/_store";
+import type { RootAction } from "./store/store";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import SignIn from "./pages/SignIn/SignIn";
 import Profile from "./pages/Profile/Profile";
 import Messages from "./pages/Messages/Messages";
+import Chat from "./pages/Messages/Chat/Chat";
 
 import "./App.css";
-import type { RootAppState, ActionType } from "./store/store";
-import Chat from "./pages/Messages/Chat/Chat";
 
 type AppProps = {
   rootState: RootAppState,
-  dispatch: (action: ActionType) => void,
+  dispatch: (action: RootAction) => void,
 };
 
 function App({

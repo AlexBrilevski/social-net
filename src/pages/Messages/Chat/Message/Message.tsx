@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import type { MessageType } from "../../../../store/store";
+import type { MessageType } from "../../../../store/_store";
 
 import styles from "./Message.module.css";
 

@@ -1,5 +1,6 @@
 import type { ChangeEvent, FC, SubmitEvent } from "react";
-import { type Messages, type ActionType } from "../../../store/store";
+import { type Messages } from "../../../store/_store";
+import type { RootAction } from "../../../store/store";
 import { sendNewMessageToChatAC, updateNewMessageTextAC } from "../../../store/messagesReducer";
 import Message from "./Message/Message";
 
@@ -7,7 +8,7 @@ import styles from "./Chat.module.css";
 
 type ChatProps = {
   messagesData: Messages,
-  dispatch: (action: ActionType) => void,
+  dispatch: (action: RootAction) => void,
 };
 
 const Chat: FC<ChatProps> = (props) => {

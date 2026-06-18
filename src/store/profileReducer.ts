@@ -1,4 +1,5 @@
-import { type ProfilePage, type ActionType, type PostType, generateId } from "./store";
+import { type ProfilePage, type PostType, generateId } from "./_store";
+import type { RootAction } from "./store";
 
 const PROFILE_ACTION_TYPES = {
   UPDATE_NEW_POST_TEXT: "profile/UPDATE-NEW-POST-TEXT",
@@ -9,7 +10,7 @@ export type ProfileAction =
   ReturnType<typeof updateNewPostTextAC> |
   ReturnType<typeof addNewPostAC>;
 
-const profileReducer = (state: ProfilePage, action: ActionType): ProfilePage => {
+const profileReducer = (state: ProfilePage, action: RootAction): ProfilePage => {
   switch (action.type) {
     case PROFILE_ACTION_TYPES.UPDATE_NEW_POST_TEXT: {
       state.newPostText = action.text;

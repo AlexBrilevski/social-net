@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import type { ChatType } from "../../../store/store";
+import type { ChatType } from "../../../store/_store";
 import { NavLink } from "react-router-dom";
 
 import styles from "./Chats.module.css";

@@ -1,5 +1,6 @@
 import type { FC, ChangeEvent, SubmitEvent } from "react";
-import { type PostType, type ActionType } from "../../../store/store";
+import { type PostType } from "../../../store/_store";
+import type { RootAction } from "../../../store/store";
 import { addNewPostAC, updateNewPostTextAC } from "../../../store/profileReducer";
 import Post from "./Post/Post";
 
@@ -8,7 +9,7 @@ import styles from "./PostsList.module.css";
 type PostsListProps = {
   postsData: Array<PostType>,
   newPostText: string,
-  dispatch: (action: ActionType) => void,
+  dispatch: (action: RootAction) => void,
 };
 
 const PostsList: FC<PostsListProps> = ({

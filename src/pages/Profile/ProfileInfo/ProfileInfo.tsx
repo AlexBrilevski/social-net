@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import type { ProfileType } from "../../../store/store";
+import type { ProfileType } from "../../../store/_store";
 import defaultAvatar from "../../../assets/images/man_avatar.png";
 
 import styles from "./ProfileInfo.module.css";
