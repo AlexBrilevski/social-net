@@ -1,23 +1,19 @@
 import { Routes, Route } from "react-router-dom";
-import type { RootState, RootAction } from "./store/store";
+import type { RootStore } from "./store/store";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import SignIn from "./pages/SignIn/SignIn";
-import Profile from "./pages/Profile/Profile";
+import ProfileContainer from "./pages/Profile/ProfileContainer";
 import Messages from "./pages/Messages/Messages";
 import Chat from "./pages/Messages/Chat/Chat";
 
 import "./App.css";
 
 type AppProps = {
-  rootState: RootState,
-  dispatch: (action: RootAction) => void,
+  store: RootStore,
 };
 
-function App({
-  rootState,
-  dispatch,
-}: AppProps) {
+function App({ store }: AppProps) {
   return (
     <>
       <Header />
@@ -29,19 +25,16 @@ function App({
           <Route
             path="profile"
             element={
-              <Profile
-                {...rootState.profilePage}
-                dispatch={dispatch}
-              />
+              <ProfileContainer store={store} />
             }
           />
-          <Route path="messages" element={<Messages {...rootState.messagesPage} />}>
+          <Route path="messages" element={<Messages {...store.getState().messagesPage} />}>
             <Route
               path=":chatId"
               element={
                 <Chat
-                  messagesData={rootState.messagesPage.messages}
-                  dispatch={dispatch}
+                  messagesData={store.getState().messagesPage.messages}
+                  dispatch={store.dispatch}
                 />
               }
             />

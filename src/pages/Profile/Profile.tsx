@@ -1,27 +1,19 @@
 import type { FC } from "react";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import PostsList from "./PostsList/PostsList";
-import type { RootAction } from "../../store/store";
-import type { ProfilePage } from "../../store/profileReducer";
+import type { RootStore } from "../../store/store";
+import PostListContainer from "./PostsList/PostListContainer";
 
-type ProfilePageProps = ProfilePage & {
-  dispatch: (action: RootAction) => void,
+type ProfilePageProps = {
+  store: RootStore,
 };
 
-const Profile: FC<ProfilePageProps> = ({
-  profile,
-  postsData,
-  newPostText,
-  dispatch,
-}) => {
+const Profile: FC<ProfilePageProps> = ({ store }) => {
+  const profile = store.getState().profilePage.profile;
+
   return (
     <div>
       <ProfileInfo profile={profile} />
-      <PostsList
-        postsData={postsData}
-        newPostText={newPostText}
-        dispatch={dispatch}
-      />
+      <PostListContainer store={store} />
     </div>
   );
 };

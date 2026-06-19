@@ -2,6 +2,7 @@ import { combineReducers, createStore } from "redux";
 import profileReducer, { type ProfileAction } from "./profileReducer";
 import messagesReducer, { type MessagesAction } from "./messagesReducer";
 
+export type RootStore = typeof store;
 export type RootState = ReturnType<typeof rootReducer>;
 
 export type RootAction =

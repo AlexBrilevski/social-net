@@ -1,6 +1,5 @@
 import type { FC, ChangeEvent, SubmitEvent } from "react";
-import type { RootAction } from "../../../store/store";
-import { type PostType, addNewPostAC, updateNewPostTextAC } from "../../../store/profileReducer";
+import { type PostType } from "../../../store/profileReducer";
 import Post from "./Post/Post";
 
 import styles from "./PostsList.module.css";
@@ -8,24 +7,26 @@ import styles from "./PostsList.module.css";
 type PostsListProps = {
   postsData: Array<PostType>,
   newPostText: string,
-  dispatch: (action: RootAction) => void,
+  addPost: (text: string) => void,
+  updateNewPostText: (text: string) => void,
 };
 
 const PostsList: FC<PostsListProps> = ({
   postsData,
   newPostText,
-  dispatch,
+  addPost,
+  updateNewPostText
 }) => {
   const onNewPostTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
-    dispatch(updateNewPostTextAC(value));
+    updateNewPostText(value);
   };
 
   const onAddNewPostSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (newPostText.trim() !== "") {
-      dispatch(addNewPostAC(newPostText));
+      addPost(newPostText);
     }
   };
 
