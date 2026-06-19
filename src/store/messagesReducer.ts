@@ -1,5 +1,35 @@
-import { generateId } from "./_store";
+import { generateId } from "../utils/helpers";
 import type { RootAction } from "./store";
+
+const DUMMY_CHATS = [
+  { id: "c1", userId: "u1", name: "Karina" },
+  { id: "c2", userId: "u2", name: "Sergei" },
+  { id: "c3", userId: "u3", name: "Nastya" },
+];
+
+const DUMMY_MESSAGES = {
+  "c1": {
+    messages: [
+      { id: "m1", userId: "u1", text: "Hi!" },
+      { id: "m2", userId: "u0", text: "Hello!" },
+      { id: "m3", userId: "u1", text: "How's things?" },
+    ],
+    newMessageText: "",
+  },
+  "c2": {
+    messages: [
+      { id: "m1", userId: "u0", text: "Yo!" },
+
+    ],
+    newMessageText: "",
+  },
+  "c3": {
+    messages: [
+      { id: "m1", userId: "u3", text: "What's up?" },
+    ],
+    newMessageText: "",
+  },
+};
 
 const MESSAGES_ACTION_TYPES = {
   UPDATE_NEW_MESSAGE_TEXT: "messages/UPDATE-NEW-MESSAGE-TEXT",
@@ -35,8 +65,8 @@ export type MessagesAction =
   ReturnType<typeof sendNewMessageToChatAC>;
 
 const initState = {
-  chats: [],
-  messages: {},
+  chats: DUMMY_CHATS,
+  messages: DUMMY_MESSAGES,
 };
 
 const messagesReducer = (state: MessagesPage = initState, action: RootAction): MessagesPage => {

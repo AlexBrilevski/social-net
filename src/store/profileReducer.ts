@@ -1,5 +1,13 @@
-import { generateId } from "./_store";
+import { generateId } from "../utils/helpers";
 import type { RootAction } from "./store";
+
+const DUMMY_POSTS = [
+  { id: "p1", postText: "Some text 1", likesCount: 2 },
+  { id: "p2", postText: "Some text 2", likesCount: 15 },
+  { id: "p3", postText: "Some text 3", likesCount: 1 },
+  { id: "p4", postText: "Some text 4", likesCount: 10 },
+  { id: "p5", postText: "Some text 5", likesCount: 5 },
+];
 
 const PROFILE_ACTION_TYPES = {
   UPDATE_NEW_POST_TEXT: "profile/UPDATE-NEW-POST-TEXT",
@@ -30,7 +38,7 @@ export type ProfileAction =
 
 const initState = {
   profile: null,
-  postsData: [],
+  postsData: DUMMY_POSTS,
   newPostText: "",
 };
 
