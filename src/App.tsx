@@ -4,8 +4,8 @@ import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import SignIn from "./pages/SignIn/SignIn";
 import ProfileContainer from "./pages/Profile/ProfileContainer";
-import Messages from "./pages/Messages/Messages";
-import Chat from "./pages/Messages/Chat/Chat";
+import MessagesContainer from "./pages/Messages/MessagesContainer";
+import ChatContainer from "./pages/Messages/Chat/ChatContainer";
 
 import "./App.css";
 
@@ -28,14 +28,11 @@ function App({ store }: AppProps) {
               <ProfileContainer store={store} />
             }
           />
-          <Route path="messages" element={<Messages {...store.getState().messagesPage} />}>
+          <Route path="messages" element={<MessagesContainer store={store} />}>
             <Route
               path=":chatId"
               element={
-                <Chat
-                  messagesData={store.getState().messagesPage.messages}
-                  dispatch={store.dispatch}
-                />
+                <ChatContainer store={store} />
               }
             />
           </Route>

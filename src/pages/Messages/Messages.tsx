@@ -1,11 +1,15 @@
 import type { FC } from "react";
-import type { MessagesPage } from "../../store/messagesReducer";
+import type { ChatType } from "../../store/messagesReducer";
 import Chats from "./Chats/Chats";
 import { Outlet } from "react-router-dom";
 
 import styles from "./Messages.module.css";
 
-const Messages: FC<MessagesPage> = ({ chats }) => {
+type MessagesProps = {
+  chats: Array<ChatType>,
+};
+
+const Messages: FC<MessagesProps> = ({ chats }) => {
   return (
     <div className={styles["messages-page-content"]}>
       <Chats chats={chats} />

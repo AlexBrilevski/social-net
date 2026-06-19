@@ -1,13 +1,13 @@
 import type { ChangeEvent, FC, SubmitEvent } from "react";
-import type { RootAction } from "../../../store/store";
-import { type Messages, sendNewMessageToChatAC, updateNewMessageTextAC } from "../../../store/messagesReducer";
+import { type Messages } from "../../../store/messagesReducer";
 import Message from "./Message/Message";
 
 import styles from "./Chat.module.css";
 
 type ChatProps = {
   messagesData: Messages,
-  dispatch: (action: RootAction) => void,
+  updateNewMessageText: (chatId: string, text: string) => void,
+  sendMessage: (chatId: string, authUserId: string, newMessageText: string) => void,
 };
 
 const Chat: FC<ChatProps> = (props) => {
@@ -18,12 +18,12 @@ const Chat: FC<ChatProps> = (props) => {
   const newMessageText = messagesData.newMessageText;
 
   const onNewMessageTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    props.dispatch(updateNewMessageTextAC(chatId, e.target.value));
+    props.updateNewMessageText(chatId, e.target.value);
   };
 
   const onSendMessageFormSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    props.dispatch(sendNewMessageToChatAC(chatId, authUserId, newMessageText));
+    props.sendMessage(chatId, authUserId, newMessageText);
   };
 
   return (
