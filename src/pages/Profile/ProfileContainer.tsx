@@ -1,14 +1,14 @@
 import type { FC } from "react";
-import type { RootStore } from "../../store/store";
 import Profile from "./Profile";
+import { StoreContext } from "../../store/StoreContext";
 
-type ProfileContainerProps = {
-  store: RootStore,
-};
-
-const ProfileContainer: FC<ProfileContainerProps> = (props) => {
+const ProfileContainer: FC = () => {
   return (
-    <Profile store={props.store} />
+    <StoreContext.Consumer>
+      {(store) => {
+        return <Profile store={store} />;
+      }}
+    </StoreContext.Consumer>
   );
 };
 

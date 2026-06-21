@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import type { RootStore } from "./store/store";
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import SignIn from "./pages/SignIn/SignIn";
@@ -9,11 +8,7 @@ import ChatContainer from "./pages/Messages/Chat/ChatContainer";
 
 import "./App.css";
 
-type AppProps = {
-  store: RootStore,
-};
-
-function App({ store }: AppProps) {
+function App() {
   return (
     <>
       <Header />
@@ -25,14 +20,14 @@ function App({ store }: AppProps) {
           <Route
             path="profile"
             element={
-              <ProfileContainer store={store} />
+              <ProfileContainer />
             }
           />
-          <Route path="messages" element={<MessagesContainer store={store} />}>
+          <Route path="messages" element={<MessagesContainer />}>
             <Route
               path=":chatId"
               element={
-                <ChatContainer store={store} />
+                <ChatContainer />
               }
             />
           </Route>
