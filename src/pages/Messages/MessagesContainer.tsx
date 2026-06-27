@@ -1,19 +1,24 @@
-import type { FC } from "react";
+import { connect } from "react-redux";
+import type { RootState } from "../../store/store";
+import type { ChatType } from "../../store/messagesReducer";
 import Messages from "./Messages";
-import { StoreContext } from "../../store/StoreContext";
 
-const MessagesContainer: FC = () => {
-  return (
-    <StoreContext.Consumer>
-      {(store) => {
-        const state = store.getState().messagesPage;
-
-        return (
-          <Messages chats={state.chats} />
-        );
-      }}
-    </StoreContext.Consumer>
-  );
+type MapStateToProps = {
+  chats: Array<ChatType>,
 };
+
+type MapDispatchToProps = {};
+
+const mapStateToProps = (state: RootState): MapStateToProps => {
+  return {
+    chats: state.messagesPage.chats,
+  };
+};
+
+const mapDispatchToProps = (): MapDispatchToProps => {
+  return {};
+};
+
+const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(Messages);
 
 export default MessagesContainer;

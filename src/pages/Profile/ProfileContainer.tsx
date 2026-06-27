@@ -1,15 +1,24 @@
-import type { FC } from "react";
+import { connect } from "react-redux";
+import type { RootState } from "../../store/store";
+import type { ProfileType } from "../../store/profileReducer";
 import Profile from "./Profile";
-import { StoreContext } from "../../store/StoreContext";
 
-const ProfileContainer: FC = () => {
-  return (
-    <StoreContext.Consumer>
-      {(store) => {
-        return <Profile store={store} />;
-      }}
-    </StoreContext.Consumer>
-  );
+type MapStateToProps = {
+  profile: ProfileType | null;
 };
+
+type MapDispatchToProps = {};
+
+const mapStateToProps = (state: RootState): MapStateToProps => {
+  return {
+    profile: state.profilePage.profile,
+  };
+};
+
+const mapDispatchToProps = (): MapDispatchToProps => {
+  return {};
+};
+
+const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(Profile);
 
 export default ProfileContainer;
