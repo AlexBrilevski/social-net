@@ -72,9 +72,16 @@ const initState = {
 const messagesReducer = (state: MessagesPage = initState, action: RootAction): MessagesPage => {
   switch (action.type) {
     case MESSAGES_ACTION_TYPES.UPDATE_NEW_MESSAGE_TEXT: {
-      state.messages[action.chatId].newMessageText = action.text;
-
-      return state;
+      return {
+        ...state, 
+        messages: {
+          ...state.messages, 
+          [action.chatId]: {
+            ...state.messages[action.chatId],
+            newMessageText: action.text,
+          }
+        }
+      };
     }
     case MESSAGES_ACTION_TYPES.SEND_NEW_MESSAGE_TO_CHAT: {
       const newMessage: MessageType = {
@@ -83,10 +90,16 @@ const messagesReducer = (state: MessagesPage = initState, action: RootAction): M
         text: action.text,
       };
 
-      state.messages[action.chatId].messages.push(newMessage);
-      state.messages[action.chatId].newMessageText = "";
-
-      return state;
+      return {
+        ...state,
+        messages: {
+          ...state.messages,
+          [action.chatId]: {
+            messages: [...state.messages[action.chatId].messages, newMessage],
+            newMessageText: action.text,
+          }
+        }
+      };
     }
     default: {
       return state;

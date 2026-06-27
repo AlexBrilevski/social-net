@@ -45,9 +45,7 @@ const initState = {
 const profileReducer = (state: ProfilePage = initState, action: RootAction): ProfilePage => {
   switch (action.type) {
     case PROFILE_ACTION_TYPES.UPDATE_NEW_POST_TEXT: {
-      state.newPostText = action.text;
-
-      return state;
+      return {...state, newPostText: action.text};
     }
     case PROFILE_ACTION_TYPES.ADD_NEW_POST: {
       const newPost: PostType = {
@@ -56,10 +54,11 @@ const profileReducer = (state: ProfilePage = initState, action: RootAction): Pro
         likesCount: 0,
       };
 
-      state.postsData.unshift(newPost);
-      state.newPostText = "";
-
-      return state;
+      return {
+        ...state, 
+        postsData: [newPost, ...state.postsData],
+        newPostText: "",
+      };
     }
     default: {
       return state;
