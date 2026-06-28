@@ -1,0 +1,49 @@
+.users-page {
+  padding: var(--indent-s);
+}
+
+.users-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--indent-base);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.user {
+  display: flex;
+  gap: var(--indent-base);
+}
+
+.user-avatar {
+  width: 150px;
+}
+
+.user-avatar img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+}
+
+.user-info {
+  padding: var(--indent-s) 0;
+}
+
+.user-name {
+  margin-bottom: var(--indent-xs);
+}
+
+.user-status,
+.user-location {
+  font-size: 14px;
+}
+
+.user-status {
+  margin-bottom: var(--indent-xs);
+}
+
+.user-info button {
+  margin-top: var(--indent-s);
+}
