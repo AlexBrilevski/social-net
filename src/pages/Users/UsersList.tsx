@@ -1,16 +1,9 @@
 import type { FC } from "react";
-import type { User } from "../../store/usersReducer";
+import type { UsersListProps } from "./UsersContainer";
 import { UserItem } from "./UsetItem";
 import styles from "./UsersList.module.css";
 
-type UsersProps = {
-  users: User[],
-  setUsers: (users: User[]) => void,
-  followUser: (id: number) => void,
-  unfollowUser: (id: number) => void,
-};
-
-export const UsersList: FC<UsersProps> = ({ users, followUser, unfollowUser }) => {
+export const UsersList: FC<UsersListProps> = ({ users, followUser, unfollowUser }) => {
   return (
     <div className={styles["users-page"]}>
       {users.length > 0 && (

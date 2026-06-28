@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import type { Dispatch } from "redux";
 import type { RootAction, RootState } from "../../../store/store";
 import { addNewPostAC, updateNewPostTextAC, type PostType } from "../../../store/profileReducer";
 import PostsList from "./PostsList";
@@ -13,6 +14,8 @@ type MapDispatchToProps = {
   updateNewPostText: (text: string) => void,
 };
 
+export type PostsListProps = MapStateToProps & MapDispatchToProps;
+
 const mapStateToProps = (state: RootState): MapStateToProps => {
   return {
     postsData: state.profilePage.postsData,
@@ -20,7 +23,7 @@ const mapStateToProps = (state: RootState): MapStateToProps => {
   };
 };
 
-const mapDispatchToProps = (dispatch: (action: RootAction) => void): MapDispatchToProps => {
+const mapDispatchToProps = (dispatch: Dispatch<RootAction>): MapDispatchToProps => {
   return {
     addPost: (newPostText: string) => {
       dispatch(addNewPostAC(newPostText));

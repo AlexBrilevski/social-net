@@ -1,14 +1,8 @@
 import type { ChangeEvent, FC, SubmitEvent } from "react";
-import { type Messages } from "../../../store/messagesReducer";
+import type { ChatProps } from "./ChatContainer";
 import Message from "./Message/Message";
 
 import styles from "./Chat.module.css";
-
-type ChatProps = {
-  messagesData: Messages,
-  updateNewMessageText: (chatId: string, text: string) => void,
-  sendMessage: (chatId: string, authUserId: string, newMessageText: string) => void,
-};
 
 const Chat: FC<ChatProps> = (props) => {
   const chatId = "c1";

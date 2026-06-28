@@ -9,6 +9,8 @@ type MapStateToProps = {
 
 type MapDispatchToProps = {};
 
+export type ProfileProps = MapStateToProps & MapDispatchToProps;
+
 const mapStateToProps = (state: RootState): MapStateToProps => {
   return {
     profile: state.profilePage.profile,

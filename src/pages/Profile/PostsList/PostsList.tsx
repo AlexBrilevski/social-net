@@ -1,15 +1,8 @@
 import type { FC, ChangeEvent, SubmitEvent } from "react";
-import { type PostType } from "../../../store/profileReducer";
+import type { PostsListProps } from "./PostListContainer";
 import Post from "./Post/Post";
 
 import styles from "./PostsList.module.css";
-
-type PostsListProps = {
-  postsData: Array<PostType>,
-  newPostText: string,
-  addPost: (text: string) => void,
-  updateNewPostText: (text: string) => void,
-};
 
 const PostsList: FC<PostsListProps> = ({
   postsData,

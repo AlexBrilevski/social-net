@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import type { Dispatch } from "redux";
 import type { RootAction, RootState } from "../../store/store";
 import { followUserAC, setUsersAC, unfollowUserAC, type User } from "../../store/usersReducer";
 import { UsersList } from "./UsersList";
@@ -14,13 +15,15 @@ type MapDispatchToProps = {
   unfollowUser: (id: number) => void,
 };
 
+export type UsersListProps = MapStateToProps & MapDispatchToProps;
+
 const mapStateToProps = (state: RootState): MapStateToProps => {
   return {
     users: state.usersPage.users,
   };
 };
 
-const mapDispatchToProps = (dispatch: (action: RootAction) => void): MapDispatchToProps => {
+const mapDispatchToProps = (dispatch: Dispatch<RootAction>): MapDispatchToProps => {
   return {
     setUsers: (users: User[]) => {
       dispatch(setUsersAC(users))
