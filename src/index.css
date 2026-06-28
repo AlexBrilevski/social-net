@@ -163,3 +163,11 @@ code {
   border-radius: var(--border-radius-default);
   color: var(--accent);
 }
+
+.btn-primary {
+  padding: var(--indent-xs) var(--indent-s);
+  background-color: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--border-radius-default);
+  color: var(--accent);
+}

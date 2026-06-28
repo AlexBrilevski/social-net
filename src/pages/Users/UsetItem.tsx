@@ -24,9 +24,13 @@ export const UserItem: FC<UserItemProps> = ({ user, follow, unfollow }) => {
         )}
         {
           user.followed ?
-            <button onClick={() => unfollow(user.id)}>Unfollow</button>
+            <button className="btn-primary" onClick={() => unfollow(user.id)}>
+              Unfollow
+            </button>
             :
-            <button onClick={() => follow(user.id)}>Follow</button>
+            <button className="btn-primary" onClick={() => follow(user.id)}>
+              Follow
+            </button>
         }
       </div>
     </div>
