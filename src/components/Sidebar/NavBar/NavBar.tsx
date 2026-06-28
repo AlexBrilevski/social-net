@@ -21,6 +21,13 @@ const NavBar: FC = () => {
             Messages
           </NavLink>
         </li>
+        <li>
+          <NavLink
+            to="/users"
+            className={({ isActive }) => isActive ? styles.active : undefined}>
+            Users
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );

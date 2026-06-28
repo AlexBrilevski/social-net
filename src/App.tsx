@@ -5,7 +5,7 @@ import SignIn from "./pages/SignIn/SignIn";
 import ProfileContainer from "./pages/Profile/ProfileContainer";
 import MessagesContainer from "./pages/Messages/MessagesContainer";
 import ChatContainer from "./pages/Messages/Chat/ChatContainer";
-
+import UsersContainer from "./pages/Users/UsersContainer";
 import "./App.css";
 
 function App() {
@@ -31,6 +31,7 @@ function App() {
               }
             />
           </Route>
+          <Route path="users" element={<UsersContainer />} />
         </Routes>
       </main>
     </>
