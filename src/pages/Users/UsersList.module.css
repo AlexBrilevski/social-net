@@ -11,6 +11,15 @@
   padding: 0;
 }
 
+.users-list li {
+  padding: 0 0 var(--indent-s);
+  border-bottom: 1px solid var(--border);
+}
+
+.users-list li:last-child {
+  border-bottom: none;
+}
+
 .user {
   display: flex;
   gap: var(--indent-base);
