@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import type { User } from "../../store/usersReducer";
 import styles from "./UsersList.module.css";
+import defaultUserAvatar from "../../assets/images/man_avatar.png";
 
 type UserItemProps = {
   user: User,
@@ -12,16 +13,11 @@ export const UserItem: FC<UserItemProps> = ({ user, follow, unfollow }) => {
   return (
     <div className={styles["user"]}>
       <div className={styles["user-avatar"]}>
-        <img src={user.avatarUrl} alt="" width="150" height="150" />
+        <img src={user.photos.large ?? defaultUserAvatar} alt="" width="150" height="150" />
       </div>
       <div className={styles["user-info"]}>
-        <p className={styles["user-name"]}>{user.fullName}</p>
+        <p className={styles["user-name"]}>{user.name}</p>
         <p className={styles["user-status"]}>{user.status}</p>
-        {user.location.country && user.location.city && (
-          <p className={styles["user-location"]}>
-            {user.location.country}, {user.location.city}
-          </p>
-        )}
         {
           user.followed ?
             <button className="btn-primary" onClick={() => unfollow(user.id)}>

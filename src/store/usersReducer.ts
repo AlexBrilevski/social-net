@@ -8,12 +8,11 @@ const USERS_ACTIONS = {
 
 export type User = {
   id: number;
-  avatarUrl: string;
-  fullName: string;
+  name: string;
   status: string;
-  location: {
-    country: string;
-    city: string;
+  photos: {
+    large: string;
+    small: string;
   };
   followed: boolean;
 };
@@ -26,40 +25,7 @@ export type UserActions =
   ReturnType<typeof unfollowUserAC>;
 
 const initState = {
-  users: [
-      {
-        id: 1,
-        avatarUrl: "",
-        fullName: "Dmitri K.",
-        status: "I am looking for a job right now...",
-        location: {country: "Belarus", city: "Minsk"},
-        followed: false,
-      },
-      {
-        id: 2,
-        avatarUrl: "",
-        fullName: "Svetlana D.",
-        status: "I am so pretty",
-        location: {country: "Belarus", city: "Minsk"},
-        followed: false,
-      },
-      {
-        id: 3,
-        avatarUrl: "",
-        fullName: "Sergei S.",
-        status: "I like football!!!",
-        location: {country: "Ukraine", city: "Kiev"},
-        followed: true,
-      },
-      {
-        id: 4,
-        avatarUrl: "",
-        fullName: "Andrew T.",
-        status: "I am free to help you to create good Video Production",
-        location: {country: "United States", city: "Philadelphia"},
-        followed: true,
-      },
-    ] as User[],
+  users: [] as User[],
 };
 
 export const usersReducer = (
