@@ -34,7 +34,7 @@ export const usersReducer = (
 ): UsersPageState => {
   switch (action.type) {
     case USERS_ACTIONS.SET_USERS: {
-      return { users: [...state.users, ...action.users] };
+      return { users: [...action.users] };
     }
     case USERS_ACTIONS.FOLLOW_USER: {
       return {
