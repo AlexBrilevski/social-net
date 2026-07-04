@@ -1,3 +1,4 @@
+import { Component } from "react";
 import { connect } from "react-redux";
 import type { Dispatch } from "redux";
 import type { RootAction, RootState } from "../../store/store";
@@ -10,7 +11,13 @@ import {
   type User
 } from "../../store/usersReducer";
 import { UsersList } from "./UsersList";
+import axios from "axios";
 
+type UsersAPIResponseData = {
+  items: User[],
+  totalCount: number,
+  error: string,
+};
 
 type MapStateToProps = {
   users: User[],
@@ -27,7 +34,7 @@ type MapDispatchToProps = {
   unfollowUser: (id: number) => void,
 };
 
-export type UsersListProps = MapStateToProps & MapDispatchToProps;
+type UsersContainerProps = MapStateToProps & MapDispatchToProps;
 
 const mapStateToProps = (state: RootState): MapStateToProps => {
   return {
@@ -58,6 +65,40 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>): MapDispatchToProps 
   };
 };
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersList);
+class UsersContainer extends Component<UsersContainerProps> {
+  componentDidMount() {
+    if (this.props.users.length === 0) {
+      axios
+        .get<UsersAPIResponseData>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        .then(response => {
+          this.props.setUsers(response.data.items);
+          this.props.setTotalUsersCount(response.data.totalCount);
+        });
+    }
+  }
 
-export default UsersContainer;
+  setCurrentPage = (pageNumber: number) => {
+    axios
+      .get<UsersAPIResponseData>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+      .then(response => {
+        this.props.setUsers(response.data.items);
+        this.props.setCurrentPage(pageNumber);
+      });
+  }
+
+  render() {
+    return (
+      <UsersList
+        users={this.props.users}
+        totalUsersCount={this.props.totalUsersCount}
+        pageSize={this.props.pageSize}
+        currentPage={this.props.currentPage}
+        setCurrentPage={this.setCurrentPage}
+        followUser={this.props.followUser}
+        unfollowUser={this.props.unfollowUser}
+      />
+    );
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
