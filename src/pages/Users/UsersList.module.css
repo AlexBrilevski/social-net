@@ -56,3 +56,27 @@
 .user-info button {
   margin-top: var(--indent-s);
 }
+
+.pagination {
+  list-style: none;
+  margin-top: var(--indent-base);
+}
+
+.pagination li {
+  display: inline-block;
+  margin: 3px;
+}
+
+.pagination button {
+  padding: 2px 8px;
+  background: var(--button-bg);
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-default);
+  color: var(--button-color);
+}
+
+.pagination .selected-page {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+  color: var(--accent);
+}
