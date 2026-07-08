@@ -2,6 +2,7 @@ import { type FC } from "react";
 import type { User } from "../../store/usersReducer";
 import { UserItem } from "./UsetItem";
 import styles from "./UsersList.module.css";
+import { Pagination } from "../../components/UI/Pagination/Pagination";
 
 type UsersListProps = {
   users: Array<User>,
@@ -14,12 +15,6 @@ type UsersListProps = {
 };
 
 export const UsersList: FC<UsersListProps> = (props) => {
-  const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
-  const pages = [] as number[];
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i);
-  }
-
   return (
     <div className={styles["users-page"]}>
       {props.users.length > 0 && (
@@ -35,20 +30,12 @@ export const UsersList: FC<UsersListProps> = (props) => {
           ))}
         </ul>
       )}
-      {pagesCount > 1 && (
-        <ul className={styles["pagination"]}>
-          {pages.map((page, i) => (
-            <li key={"page-" + i}>
-              <button
-                className={page === props.currentPage ? styles["selected-page"] : undefined}
-                onClick={() => props.setCurrentPage(page)}
-              >
-                {page}
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
+      <Pagination
+        totalItemsCount={props.totalUsersCount}
+        pageSize={props.pageSize}
+        currentPage={props.currentPage}
+        setCurrentPage={props.setCurrentPage}
+      />
     </div>
   );
 };
