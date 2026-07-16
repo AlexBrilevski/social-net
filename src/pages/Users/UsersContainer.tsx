@@ -8,7 +8,8 @@ import {
   setTotalUsersCountAC,
   setUsersAC,
   unfollowUserAC,
-  type User
+  type User,
+  type UsersPageState
 } from "../../store/usersReducer";
 import { UsersList } from "./UsersList";
 import axios from "axios";
@@ -19,12 +20,7 @@ type UsersAPIResponseData = {
   error: string,
 };
 
-type MapStateToProps = {
-  users: User[],
-  totalUsersCount: number,
-  pageSize: number,
-  currentPage: number,
-};
+type MapStateToProps = UsersPageState;
 
 type MapDispatchToProps = {
   setUsers: (users: User[]) => void,
