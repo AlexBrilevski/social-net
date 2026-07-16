@@ -9,6 +9,8 @@ type MapStateToProps = {
 
 type MapDispatchToProps = {};
 
+export type MessagesProps = MapStateToProps & MapDispatchToProps;
+
 const mapStateToProps = (state: RootState): MapStateToProps => {
   return {
     chats: state.messagesPage.chats,

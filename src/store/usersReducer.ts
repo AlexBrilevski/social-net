@@ -1,0 +1,112 @@
+import type { RootAction } from "./store";
+
+const USERS_ACTIONS = {
+  SET_USERS: "users/SET-USERS",
+  SET_TOTAL_USERS_COUNT: "users/SET_TOTAL_USERS_COUNT",
+  SET_CURRENT_PAGE: "users/SET_CURRENT_PAGE",
+  FOLLOW_USER: "users/FOLLOW-USER",
+  UNFOLLOW_USER: "users/UNFOLLOW_USER",
+  TOGGLE_IS_FETCHING: "users/TOGGLE_IS_FETCHING",
+} as const;
+
+export type User = {
+  id: number;
+  name: string;
+  status: string;
+  photos: {
+    large: string;
+    small: string;
+  };
+  followed: boolean;
+};
+
+export type UsersPageState = typeof initState;
+
+export type UserActions =
+  | ReturnType<typeof setUsers>
+  | ReturnType<typeof setTotalUsersCount>
+  | ReturnType<typeof setCurrentPage>
+  | ReturnType<typeof followUser>
+  | ReturnType<typeof unfollowUser>
+  | ReturnType<typeof toggleIsFetching>;
+
+const initState = {
+  users: [] as User[],
+  totalUsersCount: 0,
+  pageSize: 25,
+  currentPage: 1,
+  isFetching: false,
+};
+
+export const usersReducer = (
+  state = initState,
+  action: RootAction,
+): UsersPageState => {
+  switch (action.type) {
+    case USERS_ACTIONS.SET_USERS: {
+      return {
+        ...state,
+        users: action.users,
+      };
+    }
+    case USERS_ACTIONS.SET_TOTAL_USERS_COUNT: {
+      return {
+        ...state,
+        totalUsersCount: action.totalUsersCount,
+      };
+    }
+    case USERS_ACTIONS.SET_CURRENT_PAGE: {
+      return {
+        ...state,
+        currentPage: action.currentPage,
+      };
+    }
+    case USERS_ACTIONS.FOLLOW_USER: {
+      return {
+        ...state,
+        users: state.users.map((user) =>
+          user.id === action.id ? { ...user, followed: true } : user,
+        ),
+      };
+    }
+    case USERS_ACTIONS.UNFOLLOW_USER: {
+      return {
+        ...state,
+        users: state.users.map((user) =>
+          user.id === action.id ? { ...user, followed: false } : user,
+        ),
+      };
+    }
+    case USERS_ACTIONS.TOGGLE_IS_FETCHING: {
+      return {
+        ...state,
+        isFetching: action.isFetching,
+      };
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
+export const setUsers = (users: User[]) => {
+  return { type: USERS_ACTIONS.SET_USERS, users };
+};
+export const setTotalUsersCount = (totalCount: number) => {
+  return {
+    type: USERS_ACTIONS.SET_TOTAL_USERS_COUNT,
+    totalUsersCount: totalCount,
+  };
+};
+export const setCurrentPage = (pageNumber: number) => {
+  return { type: USERS_ACTIONS.SET_CURRENT_PAGE, currentPage: pageNumber };
+};
+export const followUser = (id: number) => {
+  return { type: USERS_ACTIONS.FOLLOW_USER, id };
+};
+export const unfollowUser = (id: number) => {
+  return { type: USERS_ACTIONS.UNFOLLOW_USER, id };
+};
+export const toggleIsFetching = (isFetching: boolean) => {
+  return { type: USERS_ACTIONS.TOGGLE_IS_FETCHING, isFetching };
+};
