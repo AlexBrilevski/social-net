@@ -23,12 +23,12 @@ export type User = {
 export type UsersPageState = typeof initState;
 
 export type UserActions =
-  | ReturnType<typeof setUsersAC>
-  | ReturnType<typeof setTotalUsersCountAC>
-  | ReturnType<typeof setCurrentPageAC>
-  | ReturnType<typeof followUserAC>
-  | ReturnType<typeof unfollowUserAC>
-  | ReturnType<typeof toggleIsFetchingAC>;
+  | ReturnType<typeof setUsers>
+  | ReturnType<typeof setTotalUsersCount>
+  | ReturnType<typeof setCurrentPage>
+  | ReturnType<typeof followUser>
+  | ReturnType<typeof unfollowUser>
+  | ReturnType<typeof toggleIsFetching>;
 
 const initState = {
   users: [] as User[],
@@ -89,24 +89,24 @@ export const usersReducer = (
   }
 };
 
-export const setUsersAC = (users: User[]) => {
+export const setUsers = (users: User[]) => {
   return { type: USERS_ACTIONS.SET_USERS, users };
 };
-export const setTotalUsersCountAC = (totalCount: number) => {
+export const setTotalUsersCount = (totalCount: number) => {
   return {
     type: USERS_ACTIONS.SET_TOTAL_USERS_COUNT,
     totalUsersCount: totalCount,
   };
 };
-export const setCurrentPageAC = (pageNumber: number) => {
+export const setCurrentPage = (pageNumber: number) => {
   return { type: USERS_ACTIONS.SET_CURRENT_PAGE, currentPage: pageNumber };
 };
-export const followUserAC = (id: number) => {
+export const followUser = (id: number) => {
   return { type: USERS_ACTIONS.FOLLOW_USER, id };
 };
-export const unfollowUserAC = (id: number) => {
+export const unfollowUser = (id: number) => {
   return { type: USERS_ACTIONS.UNFOLLOW_USER, id };
 };
-export const toggleIsFetchingAC = (isFetching: boolean) => {
+export const toggleIsFetching = (isFetching: boolean) => {
   return { type: USERS_ACTIONS.TOGGLE_IS_FETCHING, isFetching };
 };
