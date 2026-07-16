@@ -6,6 +6,7 @@ const USERS_ACTIONS = {
   SET_CURRENT_PAGE: "users/SET_CURRENT_PAGE",
   FOLLOW_USER: "users/FOLLOW-USER",
   UNFOLLOW_USER: "users/UNFOLLOW_USER",
+  TOGGLE_IS_FETCHING: "users/TOGGLE_IS_FETCHING",
 } as const;
 
 export type User = {
@@ -26,13 +27,15 @@ export type UserActions =
   | ReturnType<typeof setTotalUsersCountAC>
   | ReturnType<typeof setCurrentPageAC>
   | ReturnType<typeof followUserAC>
-  | ReturnType<typeof unfollowUserAC>;
+  | ReturnType<typeof unfollowUserAC>
+  | ReturnType<typeof toggleIsFetchingAC>;
 
 const initState = {
   users: [] as User[],
   totalUsersCount: 0,
-  pageSize: 50,
+  pageSize: 25,
   currentPage: 1,
+  isFetching: false,
 };
 
 export const usersReducer = (
@@ -74,6 +77,12 @@ export const usersReducer = (
         ),
       };
     }
+    case USERS_ACTIONS.TOGGLE_IS_FETCHING: {
+      return {
+        ...state,
+        isFetching: action.isFetching,
+      };
+    }
     default: {
       return state;
     }
@@ -97,4 +106,7 @@ export const followUserAC = (id: number) => {
 };
 export const unfollowUserAC = (id: number) => {
   return { type: USERS_ACTIONS.UNFOLLOW_USER, id };
+};
+export const toggleIsFetchingAC = (isFetching: boolean) => {
+  return { type: USERS_ACTIONS.TOGGLE_IS_FETCHING, isFetching };
 };

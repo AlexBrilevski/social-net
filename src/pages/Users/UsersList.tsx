@@ -1,8 +1,8 @@
 import { type FC } from "react";
 import type { User } from "../../store/usersReducer";
 import { UserItem } from "./UsetItem";
-import styles from "./UsersList.module.css";
 import { Pagination } from "../../components/UI/Pagination/Pagination";
+import styles from "./UsersList.module.css";
 
 type UsersListProps = {
   users: Array<User>,
