@@ -4,12 +4,12 @@ import defaultAvatar from "../../../assets/images/man_avatar.png";
 
 import styles from "./ProfileInfo.module.css";
 
-type ProfileProps = {
-  profile: ProfileType | null,
+type ProfileInfoProps = {
+  profile: ProfileType,
 };
 
-const ProfileInfo: FC<ProfileProps> = ({ profile }) => {
-  const avatarSrc = profile?.avatar ?? defaultAvatar;
+const ProfileInfo: FC<ProfileInfoProps> = ({ profile }) => {
+  const avatarSrc = profile.photos.large ?? defaultAvatar;
 
   return (
     <div className={styles["user-profile-info"]}>
@@ -17,7 +17,15 @@ const ProfileInfo: FC<ProfileProps> = ({ profile }) => {
         <img src={avatarSrc} alt="User name" width="150" height="150" />
       </div>
       <div>
-        <h1>User name</h1>
+        <h1>{profile?.fullName}</h1>
+        {profile.lookingForAJob ?
+          <>
+            <p>Looking for a job: Yes</p>
+            <p>{profile.lookingForAJobDescription}</p>
+          </>
+          :
+          <p>Looking for a job: No</p>
+        }
       </div>
     </div>
   );

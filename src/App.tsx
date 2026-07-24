@@ -18,7 +18,7 @@ function App() {
           <Route index element={<SignIn />} />
           <Route path="login" element={<SignIn />} />
           <Route
-            path="profile"
+            path="profile/*"
             element={
               <ProfileContainer />
             }

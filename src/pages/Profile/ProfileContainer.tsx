@@ -1,15 +1,19 @@
 import { connect } from "react-redux";
+import axios from "axios";
 import type { RootState } from "../../store/store";
-import type { ProfileType } from "../../store/profileReducer";
+import { setUserProfile, type ProfileType } from "../../store/profileReducer";
 import Profile from "./Profile";
+import { Component } from "react";
 
 type MapStateToProps = {
   profile: ProfileType | null;
 };
 
-type MapDispatchToProps = {};
+type MapDispatchToProps = {
+  setUserProfile: (profile: ProfileType) => void,
+};
 
-export type ProfileProps = MapStateToProps & MapDispatchToProps;
+export type ProfileContainerProps = MapStateToProps & MapDispatchToProps;
 
 const mapStateToProps = (state: RootState): MapStateToProps => {
   return {
@@ -17,10 +21,20 @@ const mapStateToProps = (state: RootState): MapStateToProps => {
   };
 };
 
-const mapDispatchToProps = (): MapDispatchToProps => {
-  return {};
+class ProfileContainer extends Component<ProfileContainerProps> {
+  componentDidMount() {
+    axios
+      .get<ProfileType>("https://social-network.samuraijs.com/api/1.0/profile/2")
+      .then(response => {
+        this.props.setUserProfile(response.data);
+      });
+  }
+
+  render() {
+    return (
+      <Profile profile={this.props.profile} />
+    );
+  }
 };
 
-const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(Profile);
-
-export default ProfileContainer;
+export default connect(mapStateToProps, { setUserProfile })(ProfileContainer);

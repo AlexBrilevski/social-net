@@ -1,9 +1,18 @@
 import type { FC } from "react";
+import type { ProfileType } from "../../store/profileReducer";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import type { ProfileProps } from "./ProfileContainer";
 import PostListContainer from "./PostsList/PostListContainer";
+import Preloader from "../../components/UI/Preloader/Preloader";
+
+type ProfileProps = {
+  profile: ProfileType | null,
+};
 
 const Profile: FC<ProfileProps> = ({ profile }) => {
+  if (!profile) {
+    return <Preloader />
+  }
+
   return (
     <div>
       <ProfileInfo profile={profile} />

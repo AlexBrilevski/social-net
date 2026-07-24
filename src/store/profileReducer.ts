@@ -10,14 +10,30 @@ const DUMMY_POSTS = [
 ];
 
 const PROFILE_ACTION_TYPES = {
+  SET_PROFILE: "profile/SET-USER-PROFILE",
   UPDATE_NEW_POST_TEXT: "profile/UPDATE-NEW-POST-TEXT",
   ADD_NEW_POST: "profile/ADD-NEW-POST",
 } as const;
 
 export type ProfileType = {
-  userId: string,
+  userId: number,
+  lookingForAJob: boolean,
+  lookingForAJobDescription: string,
   fullName: string,
-  avatar: string,
+  contacts: {
+    github?: string,
+    vk?: string,
+    facebook?: string,
+    instagram?: string,
+    twitter?: string,
+    website?: string,
+    youtube?: string,
+    mainLink?: string,
+  },
+  photos: {
+    small: string,
+    large: string,
+  },
 };
 
 export type PostType = {
@@ -33,8 +49,9 @@ export type ProfilePage = {
 };
 
 export type ProfileAction =
-  ReturnType<typeof updateNewPostTextAC> |
-  ReturnType<typeof addNewPostAC>;
+  | ReturnType<typeof setUserProfile>
+  | ReturnType<typeof updateNewPostTextAC>
+  | ReturnType<typeof addNewPostAC>;
 
 const initState = {
   profile: null,
@@ -44,6 +61,9 @@ const initState = {
 
 const profileReducer = (state: ProfilePage = initState, action: RootAction): ProfilePage => {
   switch (action.type) {
+    case PROFILE_ACTION_TYPES.SET_PROFILE: {
+      return { ...state, profile: action.profile };
+    }
     case PROFILE_ACTION_TYPES.UPDATE_NEW_POST_TEXT: {
       return {...state, newPostText: action.text};
     }
@@ -64,6 +84,10 @@ const profileReducer = (state: ProfilePage = initState, action: RootAction): Pro
       return state;
     }
   }
+};
+
+export const setUserProfile = (profile: ProfileType) => {
+  return { type: PROFILE_ACTION_TYPES.SET_PROFILE, profile };
 };
 
 export const updateNewPostTextAC = (text: string) => {

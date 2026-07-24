@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import { NavLink } from "react-router-dom";
 import type { User } from "../../store/usersReducer";
 import styles from "./UsersList.module.css";
 import defaultUserAvatar from "../../assets/images/man_avatar.png";
@@ -16,7 +17,11 @@ export const UserItem: FC<UserItemProps> = ({ user, follow, unfollow }) => {
         <img src={user.photos.large ?? defaultUserAvatar} alt="" width="150" height="150" />
       </div>
       <div className={styles["user-info"]}>
-        <p className={styles["user-name"]}>{user.name}</p>
+        <p className={styles["user-name"]}>
+          <NavLink to={`profile/${user.id}`}>
+            {user.name}
+          </NavLink>
+        </p>
         <p className={styles["user-status"]}>{user.status}</p>
         {
           user.followed ?
