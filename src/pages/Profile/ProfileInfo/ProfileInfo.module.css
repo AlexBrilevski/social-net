@@ -4,3 +4,11 @@
   padding: var(--indent-s);
   margin-bottom: var(--indent-base);
 }
+
+.user-profile-info img {
+  border-radius: 50%;
+}
+
+.user-profile-info h1 {
+  margin-top: 0;
+}
