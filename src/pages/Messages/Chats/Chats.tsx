@@ -13,14 +13,12 @@ const Chats: FC<ChatsProps> = ({ chats }) => {
     <div className={styles["chats"]}>
       <ul className={styles["chats-list"]}>
         {chats.map(chat => {
-          const setChatItemClasses = (isActive: boolean): string => isActive ?
-            `${styles["chat-list-item"]} ${styles["active"]}` : styles["chat-list-item"];
-
           return (
             <li key={chat.id}>
               <NavLink
-                to={`${chat.id}`}
-                className={({ isActive }) => setChatItemClasses(isActive)}>
+                to={`/messages/${chat.id}`}
+                className={styles["chat-list-item"]}
+                activeClassName={styles["active"]}>
                 {chat.name}
               </NavLink>
             </li>

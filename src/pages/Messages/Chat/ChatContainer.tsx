@@ -5,6 +5,7 @@ import { sendNewMessageToChatAC, updateNewMessageTextAC, type Messages } from ".
 import Chat from "./Chat";
 
 type MapStateToProps = {
+  chatId?: string,
   messagesData: Messages,
 };
 
