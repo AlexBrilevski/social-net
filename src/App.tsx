@@ -1,5 +1,5 @@
 import { Route } from "react-router-dom";
-import Header from "./components/Header/Header";
+import HeaderContainer from "./components/Header/HeaderContainer";
 import Sidebar from "./components/Sidebar/Sidebar";
 import SignIn from "./pages/SignIn/SignIn";
 import ProfileContainer from "./pages/Profile/ProfileContainer";
@@ -10,7 +10,7 @@ import "./App.css";
 function App() {
   return (
     <>
-      <Header />
+      <HeaderContainer />
       <Sidebar />
       <main className="main-content">
         <Route path="/login" render={() => <SignIn />} />

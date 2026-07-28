@@ -15,3 +15,17 @@
 .header .logo img {
   display: block;
 }
+
+.login-block .container {
+    display: flex;
+}
+
+.login-block img {
+    width: 40px;
+    margin-right: var(--indent-s);
+    border-radius: 50%;
+}
+
+.login-block a {
+    text-decoration: none;
+}
