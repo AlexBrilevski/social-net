@@ -19,7 +19,6 @@ const DUMMY_MESSAGES = {
   "c2": {
     messages: [
       { id: "m1", userId: "u0", text: "Yo!" },
-
     ],
     newMessageText: "",
   },
@@ -69,7 +68,7 @@ const initState = {
   messages: DUMMY_MESSAGES,
 };
 
-const messagesReducer = (state: MessagesPage = initState, action: RootAction): MessagesPage => {
+export const messagesReducer = (state: MessagesPage = initState, action: RootAction): MessagesPage => {
   switch (action.type) {
     case MESSAGES_ACTION_TYPES.UPDATE_NEW_MESSAGE_TEXT: {
       return {
@@ -85,7 +84,7 @@ const messagesReducer = (state: MessagesPage = initState, action: RootAction): M
     }
     case MESSAGES_ACTION_TYPES.SEND_NEW_MESSAGE_TO_CHAT: {
       const newMessage: MessageType = {
-        id: generateId(),
+        id: action.newMessageId,
         userId: action.userId,
         text: action.text,
       };
@@ -112,7 +111,8 @@ export const updateNewMessageTextAC = (chatId: string, text: string) => {
 };
 
 export const sendNewMessageToChatAC = (chatId: string, userId: string, text: string) => {
-  return { type: MESSAGES_ACTION_TYPES.SEND_NEW_MESSAGE_TO_CHAT, chatId, userId, text };
+  const newMessageId = generateId();
+  return { type: MESSAGES_ACTION_TYPES.SEND_NEW_MESSAGE_TO_CHAT, newMessageId, chatId, userId, text };
 };
 
 export default messagesReducer;

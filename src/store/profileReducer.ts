@@ -59,7 +59,7 @@ const initState = {
   newPostText: "",
 };
 
-const profileReducer = (state: ProfilePage = initState, action: RootAction): ProfilePage => {
+export const profileReducer = (state: ProfilePage = initState, action: RootAction): ProfilePage => {
   switch (action.type) {
     case PROFILE_ACTION_TYPES.SET_PROFILE: {
       return { ...state, profile: action.profile };
@@ -69,7 +69,7 @@ const profileReducer = (state: ProfilePage = initState, action: RootAction): Pro
     }
     case PROFILE_ACTION_TYPES.ADD_NEW_POST: {
       const newPost: PostType = {
-        id: generateId(),
+        id: action.newPostId,
         postText: action.postText,
         likesCount: 0,
       };
@@ -95,7 +95,8 @@ export const updateNewPostTextAC = (text: string) => {
 };
 
 export const addNewPostAC = (postText: string) => {
-  return { type: PROFILE_ACTION_TYPES.ADD_NEW_POST, postText };
+  const newPostId = generateId();
+  return { type: PROFILE_ACTION_TYPES.ADD_NEW_POST, newPostId, postText };
 };
 
 export default profileReducer;
