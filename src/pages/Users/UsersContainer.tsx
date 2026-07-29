@@ -21,6 +21,12 @@ type UsersAPIResponseData = {
   error: string,
 };
 
+type FollowAPIResponseData = {
+  resultCode: number,
+  messages: Array<string>,
+  data: {},
+};
+
 type MapStateToProps = UsersPageState;
 
 type MapDispatchToProps = {
@@ -49,7 +55,10 @@ class UsersContainer extends Component<UsersContainerProps> {
     if (this.props.users.length === 0) {
       this.props.toggleIsFetching(true);
       axios
-        .get<UsersAPIResponseData>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        .get<UsersAPIResponseData>(
+          `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
+          { withCredentials: true },
+        )
         .then(response => {
           this.props.toggleIsFetching(false);
           this.props.setUsers(response.data.items);
@@ -61,11 +70,37 @@ class UsersContainer extends Component<UsersContainerProps> {
   setCurrentPage = (pageNumber: number) => {
     this.props.toggleIsFetching(true);
     axios
-      .get<UsersAPIResponseData>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+      .get<UsersAPIResponseData>(
+        `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
+        { withCredentials: true },
+      )
       .then(response => {
         this.props.toggleIsFetching(false);
         this.props.setUsers(response.data.items);
         this.props.setCurrentPage(pageNumber);
+      });
+  }
+
+  followUser(userId: number) {
+    axios
+      .post<FollowAPIResponseData>(
+        `https://social-network.samuraijs.com/api/1.0/follow/${userId}`,
+        {},
+        { withCredentials: true, headers: { "API-KEY": "07a6853a-00ae-46be-89bd-7635822fedbc" } }
+      )
+      .then(response => {
+        if (response.data.resultCode === 0) this.props.followUser(userId);
+      });
+  }
+
+  unfollowUser(userId: number) {
+    axios
+      .delete<FollowAPIResponseData>(
+        `https://social-network.samuraijs.com/api/1.0/follow/${userId}`,
+        { withCredentials: true, headers: { "API-KEY": "07a6853a-00ae-46be-89bd-7635822fedbc" } }
+      )
+      .then(response => {
+        if (response.data.resultCode === 0) this.props.unfollowUser(userId);
       });
   }
 
@@ -79,9 +114,9 @@ class UsersContainer extends Component<UsersContainerProps> {
           totalUsersCount={this.props.totalUsersCount}
           pageSize={this.props.pageSize}
           currentPage={this.props.currentPage}
-          setCurrentPage={this.setCurrentPage}
-          followUser={this.props.followUser}
-          unfollowUser={this.props.unfollowUser}
+          setCurrentPage={this.setCurrentPage.bind(this)}
+          followUser={this.followUser.bind(this)}
+          unfollowUser={this.unfollowUser.bind(this)}
         />
     );
   }

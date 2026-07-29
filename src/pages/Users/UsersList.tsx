@@ -10,8 +10,8 @@ type UsersListProps = {
   pageSize: number,
   currentPage: number,
   setCurrentPage: (pageNumber: number) => void,
-  followUser: (user_ID: number) => void,
-  unfollowUser: (user_ID: number) => void,
+  followUser: (userId: number) => void,
+  unfollowUser: (userId: number) => void,
 };
 
 export const UsersList: FC<UsersListProps> = (props) => {
