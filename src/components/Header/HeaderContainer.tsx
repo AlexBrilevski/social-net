@@ -44,10 +44,9 @@ class HeaderContainer extends Component<HeaderContainerProps> {
       if (response.data.resultCode === 0) {
         const { id, email, login } = response.data.data;
         this.props.setAuthUserData(id, email, login);
-        axios.get<ProfileType>("https://social-network.samuraijs.com/api/1.0/profile/" + id)
-          .then(response => this.props.setAuthUserProfile(response.data));
+        return axios.get<ProfileType>("https://social-network.samuraijs.com/api/1.0/profile/" + id);
       }
-    });
+    }).then(response => response && this.props.setAuthUserProfile(response.data));
   };
   render() {
     return <Header {...this.props} />;
