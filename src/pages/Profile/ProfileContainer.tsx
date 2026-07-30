@@ -1,10 +1,11 @@
+import { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, type RouteComponentProps } from "react-router-dom";
-import axios from "axios";
+import type { ProfileType } from "../../models/profile";
+import { profileAPI } from "../../api/api";
 import type { RootState } from "../../store/store";
-import { setUserProfile, type ProfileType } from "../../store/profileReducer";
+import { setUserProfile } from "../../store/profileReducer";
 import Profile from "./Profile";
-import { Component } from "react";
 
 type PathParams = {
   userId: string,
@@ -31,11 +32,7 @@ class ProfileContainer extends Component<ProfileContainerProps> {
     const userId = this.props.match.params.userId;
 
     if (userId) {
-      axios
-        .get<ProfileType>(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-        .then(response => {
-          this.props.setUserProfile(response.data);
-        });
+      profileAPI.getUserProfile(userId).then(data => this.props.setUserProfile(data));
     }
   }
 

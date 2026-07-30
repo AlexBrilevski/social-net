@@ -1,3 +1,4 @@
+import type { User } from "../models/user";
 import type { RootAction } from "./store";
 
 const USERS_ACTIONS = {
@@ -8,17 +9,6 @@ const USERS_ACTIONS = {
   UNFOLLOW_USER: "users/UNFOLLOW_USER",
   TOGGLE_IS_FETCHING: "users/TOGGLE_IS_FETCHING",
 } as const;
-
-export type User = {
-  id: number;
-  name: string;
-  status: string;
-  photos: {
-    large: string;
-    small: string;
-  };
-  followed: boolean;
-};
 
 export type UsersPageState = typeof initState;
 

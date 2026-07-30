@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { Link } from "react-router-dom";
-import type { ProfileType } from "../../store/profileReducer";
+import type { ProfileType } from "../../models/profile";
 import logo from "../../assets/images/logo.png";
 import defaultAvatar from "../../assets/images/man_avatar.png";
 import styles from "./Header.module.css";

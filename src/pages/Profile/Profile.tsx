@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import type { ProfileType } from "../../store/profileReducer";
+import type { ProfileType } from "../../models/profile";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import PostListContainer from "./PostsList/PostListContainer";
 import Preloader from "../../components/UI/Preloader/Preloader";

@@ -1,5 +1,5 @@
 import { type FC } from "react";
-import type { User } from "../../store/usersReducer";
+import type { User } from "../../models/user";
 import { UserItem } from "./UsetItem";
 import { Pagination } from "../../components/UI/Pagination/Pagination";
 import styles from "./UsersList.module.css";

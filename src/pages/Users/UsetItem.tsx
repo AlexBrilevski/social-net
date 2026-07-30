@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { NavLink } from "react-router-dom";
-import type { User } from "../../store/usersReducer";
+import type { User } from "../../models/user";
 import styles from "./UsersList.module.css";
 import defaultUserAvatar from "../../assets/images/man_avatar.png";
 

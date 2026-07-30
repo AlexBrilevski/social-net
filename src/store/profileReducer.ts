@@ -1,3 +1,4 @@
+import type { ProfileType } from "../models/profile";
 import { generateId } from "../utils/helpers";
 import type { RootAction } from "./store";
 
@@ -14,27 +15,6 @@ const PROFILE_ACTION_TYPES = {
   UPDATE_NEW_POST_TEXT: "profile/UPDATE-NEW-POST-TEXT",
   ADD_NEW_POST: "profile/ADD-NEW-POST",
 } as const;
-
-export type ProfileType = {
-  userId: number,
-  lookingForAJob: boolean,
-  lookingForAJobDescription: string,
-  fullName: string,
-  contacts: {
-    github?: string,
-    vk?: string,
-    facebook?: string,
-    instagram?: string,
-    twitter?: string,
-    website?: string,
-    youtube?: string,
-    mainLink?: string,
-  },
-  photos: {
-    small: string,
-    large: string,
-  },
-};
 
 export type PostType = {
   id: string,

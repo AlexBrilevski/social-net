@@ -1,10 +1,10 @@
+import type { ProfileType } from "../models/profile";
 import {
   type AuthInitState,
   authReducer,
   setAuthUserData,
   setAuthUserProfile,
 } from "./authReducer";
-import type { ProfileType } from "./profileReducer";
 
 let initState: AuthInitState;
 

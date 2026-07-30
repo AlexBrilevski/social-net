@@ -1,8 +1,8 @@
+import type { ProfileType } from "../models/profile";
 import {
   profileReducer,
   addNewPostAC,
   type ProfilePage,
-  type ProfileType,
   setUserProfile,
   updateNewPostTextAC,
 } from "./profileReducer";

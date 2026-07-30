@@ -1,5 +1,5 @@
+import type { ProfileType } from "../models/profile";
 import type { RootAction } from "./store";
-import type { ProfileType } from "./profileReducer";
 
 const AUTH_ACTIONS = {
   SET_AUTH_USER_DATA: "auth/SET_AUTH_USER_DATA",

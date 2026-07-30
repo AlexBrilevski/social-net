@@ -1,5 +1,7 @@
 import { Component } from "react";
 import { connect } from "react-redux";
+import type { User } from "../../models/user";
+import { followAPI, usersAPI } from "../../api/api";
 import type { RootState } from "../../store/store";
 import {
   followUser,
@@ -8,24 +10,10 @@ import {
   setUsers,
   toggleIsFetching,
   unfollowUser,
-  type User,
   type UsersPageState
 } from "../../store/usersReducer";
 import Preloader from "../../components/UI/Preloader/Preloader";
 import { UsersList } from "./UsersList";
-import axios from "axios";
-
-type UsersAPIResponseData = {
-  items: User[],
-  totalCount: number,
-  error: string,
-};
-
-type FollowAPIResponseData = {
-  resultCode: number,
-  messages: Array<string>,
-  data: {},
-};
 
 type MapStateToProps = UsersPageState;
 
@@ -54,54 +42,33 @@ class UsersContainer extends Component<UsersContainerProps> {
   componentDidMount() {
     if (this.props.users.length === 0) {
       this.props.toggleIsFetching(true);
-      axios
-        .get<UsersAPIResponseData>(
-          `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
-          { withCredentials: true },
-        )
-        .then(response => {
-          this.props.toggleIsFetching(false);
-          this.props.setUsers(response.data.items);
-          this.props.setTotalUsersCount(response.data.totalCount);
-        });
+      usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+        this.props.toggleIsFetching(false);
+        this.props.setUsers(data.items);
+        this.props.setTotalUsersCount(data.totalCount);
+      });
     }
   }
 
   setCurrentPage = (pageNumber: number) => {
     this.props.toggleIsFetching(true);
-    axios
-      .get<UsersAPIResponseData>(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
-        { withCredentials: true },
-      )
-      .then(response => {
-        this.props.toggleIsFetching(false);
-        this.props.setUsers(response.data.items);
-        this.props.setCurrentPage(pageNumber);
-      });
+    usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+      this.props.toggleIsFetching(false);
+      this.props.setUsers(data.items);
+      this.props.setCurrentPage(pageNumber);
+    });
   }
 
   followUser(userId: number) {
-    axios
-      .post<FollowAPIResponseData>(
-        `https://social-network.samuraijs.com/api/1.0/follow/${userId}`,
-        {},
-        { withCredentials: true, headers: { "API-KEY": "07a6853a-00ae-46be-89bd-7635822fedbc" } }
-      )
-      .then(response => {
-        if (response.data.resultCode === 0) this.props.followUser(userId);
-      });
+    followAPI.follow(userId).then(data => {
+      if (data.resultCode === 0) this.props.followUser(userId);
+    });
   }
 
   unfollowUser(userId: number) {
-    axios
-      .delete<FollowAPIResponseData>(
-        `https://social-network.samuraijs.com/api/1.0/follow/${userId}`,
-        { withCredentials: true, headers: { "API-KEY": "07a6853a-00ae-46be-89bd-7635822fedbc" } }
-      )
-      .then(response => {
-        if (response.data.resultCode === 0) this.props.unfollowUser(userId);
-      });
+    followAPI.unfollow(userId).then(data => {
+      if (data.resultCode === 0) this.props.unfollowUser(userId);
+    });
   }
 
   render() {
