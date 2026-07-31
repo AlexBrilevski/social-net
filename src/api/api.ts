@@ -10,6 +10,12 @@ const axiosInstance = axios.create({
   },
 });
 
+type APIResponseData<T> = {
+  data: T,
+  resultCode: number,
+  messages: Array<string>,
+};
+
 type UsersResponseData = {
   items: User[],
   totalCount: number,
@@ -35,38 +41,30 @@ export const profileAPI = {
 };
 
 type AuthResponseData = {
-  data: {
     id: number,
     email: string,
     login: string,
-  }
-  resultCode: number,
-  messages: Array<string>,
-};
+  };
 
 export const authAPI = {
   me() {
     return axiosInstance
-      .get<AuthResponseData>("auth/me")
+      .get<APIResponseData<AuthResponseData>>("auth/me")
       .then(response => response.data);
   },
 };
 
-type FollowResponseData = {
-  data: {},
-  resultCode: number,
-  messages: Array<string>,
-};
+type FollowResponseData = {};
 
 export const followAPI = {
   follow(userId: number) {
     return axiosInstance
-      .post<FollowResponseData>(`follow/${userId}`, {})
+      .post<APIResponseData<FollowResponseData>>(`follow/${userId}`, {})
       .then(response => response.data);
   },
   unfollow(userId: number) {
     return axiosInstance
-      .delete<FollowResponseData>(`follow/${userId}`)
+      .delete<APIResponseData<FollowResponseData>>(`follow/${userId}`)
       .then(response => response.data);
   },
 };
