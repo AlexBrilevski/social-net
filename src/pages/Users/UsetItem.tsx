@@ -6,11 +6,12 @@ import defaultUserAvatar from "../../assets/images/man_avatar.png";
 
 type UserItemProps = {
   user: User,
+  followingInProgress: Array<number>,
   follow: (id: number) => void,
   unfollow: (id: number) => void,
 };
 
-export const UserItem: FC<UserItemProps> = ({ user, follow, unfollow }) => {
+export const UserItem: FC<UserItemProps> = ({ user, followingInProgress, follow, unfollow }) => {
   return (
     <div className={styles["user"]}>
       <div className={styles["user-avatar"]}>
@@ -25,11 +26,19 @@ export const UserItem: FC<UserItemProps> = ({ user, follow, unfollow }) => {
         <p className={styles["user-status"]}>{user.status}</p>
         {
           user.followed ?
-            <button className="btn-primary" onClick={() => unfollow(user.id)}>
+            <button
+              className="btn-primary"
+              onClick={() => unfollow(user.id)}
+              disabled={followingInProgress.some(id => id === user.id)}
+            >
               Unfollow
             </button>
             :
-            <button className="btn-primary" onClick={() => follow(user.id)}>
+            <button
+              className="btn-primary"
+              onClick={() => follow(user.id)}
+              disabled={followingInProgress.some(id => id === user.id)}
+            >
               Follow
             </button>
         }

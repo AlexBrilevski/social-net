@@ -8,6 +8,7 @@ const USERS_ACTIONS = {
   FOLLOW_USER: "users/FOLLOW-USER",
   UNFOLLOW_USER: "users/UNFOLLOW_USER",
   TOGGLE_IS_FETCHING: "users/TOGGLE_IS_FETCHING",
+  TOGGLE_FOLLOWING_PROGRESS: "users/TOGGLE_FOLLOWING_PROGRESS",
 } as const;
 
 export type UsersPageState = typeof initState;
@@ -18,7 +19,8 @@ export type UserActions =
   | ReturnType<typeof setCurrentPage>
   | ReturnType<typeof followUser>
   | ReturnType<typeof unfollowUser>
-  | ReturnType<typeof toggleIsFetching>;
+  | ReturnType<typeof toggleIsFetching>
+  | ReturnType<typeof toggleFollowingProgress>;
 
 const initState = {
   users: [] as User[],
@@ -26,6 +28,7 @@ const initState = {
   pageSize: 25,
   currentPage: 1,
   isFetching: false,
+  followingInProgress: [] as Array<number>,
 };
 
 export const usersReducer = (
@@ -73,6 +76,14 @@ export const usersReducer = (
         isFetching: action.isFetching,
       };
     }
+    case USERS_ACTIONS.TOGGLE_FOLLOWING_PROGRESS: {
+      return {
+        ...state,
+        followingInProgress: action.inProgress
+          ? [...state.followingInProgress, action.userId]
+          : state.followingInProgress.filter(id => id !== action.userId),
+      };
+    }
     default: {
       return state;
     }
@@ -99,4 +110,7 @@ export const unfollowUser = (id: number) => {
 };
 export const toggleIsFetching = (isFetching: boolean) => {
   return { type: USERS_ACTIONS.TOGGLE_IS_FETCHING, isFetching };
+};
+export const toggleFollowingProgress = (inProgress: boolean, userId: number) => {
+  return { type: USERS_ACTIONS.TOGGLE_FOLLOWING_PROGRESS, inProgress, userId };
 };

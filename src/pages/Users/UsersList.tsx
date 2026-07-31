@@ -9,6 +9,7 @@ type UsersListProps = {
   totalUsersCount: number,
   pageSize: number,
   currentPage: number,
+  followingInProgress: Array<number>,
   setCurrentPage: (pageNumber: number) => void,
   followUser: (userId: number) => void,
   unfollowUser: (userId: number) => void,
@@ -23,6 +24,7 @@ export const UsersList: FC<UsersListProps> = (props) => {
             <li key={user.id}>
               <UserItem
                 user={user}
+                followingInProgress={props.followingInProgress}
                 follow={props.followUser}
                 unfollow={props.unfollowUser}
               />

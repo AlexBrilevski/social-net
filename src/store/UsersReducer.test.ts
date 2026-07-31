@@ -7,6 +7,7 @@ import {
   toggleIsFetching,
   unfollowUser,
   type UsersPageState,
+  toggleFollowingProgress,
 } from "./usersReducer";
 
 let state: UsersPageState;
@@ -40,6 +41,7 @@ beforeEach(() => {
     pageSize: 10,
     currentPage: 1,
     isFetching: false,
+    followingInProgress: [],
   };
 });
 
@@ -143,4 +145,16 @@ test("Status isFetching should be correctly updated", () => {
   expect(newState).not.toBe(state);
   expect(state.isFetching).toBeFalsy();
   expect(newState.isFetching).toBeTruthy();
+});
+
+test("FollowingInProgress array should be correctly updated", () => {
+  const userId = 2;
+
+  const newState = usersReducer(state, toggleFollowingProgress(true, userId));
+  const newStateAlt = usersReducer(newState, toggleFollowingProgress(false, userId));
+
+  expect(newState).not.toBe(state);
+  expect(state.followingInProgress.length).toBe(0);
+  expect(newState.followingInProgress.length).toBe(1);
+  expect(newStateAlt.followingInProgress.length).toBe(0);
 });
